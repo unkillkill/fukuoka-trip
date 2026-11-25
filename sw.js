@@ -1,9 +1,11 @@
-const CACHE_NAME = 'fukuoka-family-pwa-v2';
+const CACHE_NAME = 'fukuoka-family-pwa-v3';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {

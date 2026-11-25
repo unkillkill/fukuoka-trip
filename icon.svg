@@ -1,12 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#15803d"/>
-  <circle cx="256" cy="256" r="188" fill="#166534" opacity="0.45"/>
-  <!-- Cute stylized leaf + torii / travel badge -->
-  <path d="M136 188 h240 v26 h-240 z" fill="#fefce8" rx="8"/>
-  <path d="M156 232 h200 v20 h-200 z" fill="#fefce8"/>
-  <rect x="184" y="206" width="24" height="148" rx="8" fill="#fefce8"/>
-  <rect x="304" y="206" width="24" height="148" rx="8" fill="#fefce8"/>
-  <path d="M256 112 c36 0 64 24 64 56 c-36 0 -64 -24 -64 -56 z" fill="#86efac"/>
-  <path d="M256 112 c-36 0 -64 24 -64 56 c36 0 64 -24 64 -56 z" fill="#4ade80"/>
-  <text x="256" y="420" text-anchor="middle" font-family="sans-serif" font-size="48" font-weight="700" fill="#ffffff" letter-spacing="4">福岡</text>
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="52%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <!-- Warm Sun -->
+  <circle cx="256" cy="218" r="118" fill="url(#sun)" opacity="0.95"/>
+  <!-- Soft decorative clouds -->
+  <g fill="#fff7ed" opacity="0.32">
+    <rect x="76" y="138" width="110" height="22" rx="11"/>
+    <rect x="336" y="168" width="102" height="20" rx="10"/>
+  </g>
+  <!-- Classic Japanese Torii Silhouette in deep warm cream/wood -->
+  <g fill="#7c2d12">
+    <!-- Top curved beam (Kasagi) -->
+    <path d="M108 192 Q256 218 404 192 L396 220 Q256 242 116 220 Z"/>
+    <!-- Second horizontal beam (Nuki) -->
+    <rect x="136" y="250" width="240" height="22" rx="8"/>
+    <!-- Center strut (Gakuzuka) -->
+    <rect x="244" y="218" width="24" height="36" rx="4"/>
+    <!-- Left & Right Pillars -->
+    <rect x="174" y="216" width="28" height="176" rx="10"/>
+    <rect x="310" y="216" width="28" height="176" rx="10"/>
+    <!-- Pillar bases -->
+    <rect x="166" y="374" width="44" height="22" rx="6"/>
+    <rect x="302" y="374" width="44" height="22" rx="6"/>
+  </g>
+  <!-- Cute little paper airplane in top-right -->
+  <path d="M356 106 L418 90 L388 144 L376 122 Z" fill="#fffbeb"/>
+  <path d="M356 106 L376 122 L388 144" fill="none" stroke="#ea580c" stroke-width="3"/>
+  <!-- Warm bottom hills / horizon -->
+  <path d="M0 396 Q140 364 256 388 T512 384 L512 512 L0 512 Z" fill="#431407" opacity="0.28"/>
 </svg>

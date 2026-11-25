@@ -4,36 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>福岡 3 天 2 夜家族旅遊隨身手冊</title>
-  <meta name="theme-color" content="#15803d" />
+  <meta name="theme-color" content="#c85a32" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="福岡家族遊" />
   <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" href="./icon-192.png" />
   <link rel="icon" type="image/svg+xml" href="./icon.svg" />
-  <link rel="apple-touch-icon" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon-512.png" />
   <style>
     :root {
-      --primary: #15803d;
-      --primary-dark: #166534;
-      --primary-soft: #dcfce7;
-      --accent: #0f766e;
-      --bg: #f8fafc;
+      --primary: #c85a32;
+      --primary-dark: #9a3412;
+      --primary-grad: linear-gradient(135deg, #d97736 0%, #c85a32 55%, #b4432a 100%);
+      --primary-soft: #ffedd5;
+      --accent: #d97706;
+      --bg: #faf6f0;
       --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --warn-bg: #fef9c3;
-      --warn-border: #facc15;
-      --warn-text: #854d0e;
-      --radius: 16px;
-      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      --card-warm: #fffbf5;
+      --text: #2c2420;
+      --muted: #786a62;
+      --border: #ede4d8;
+      --warn-bg: #fef3c7;
+      --warn-border: #f59e0b;
+      --warn-text: #92400e;
+      --radius: 18px;
+      --shadow: 0 4px 16px rgba(120, 74, 42, 0.07);
     }
 
     body.rainy-theme {
-      --primary: #475569;
-      --primary-dark: #334155;
-      --primary-soft: #e2e8f0;
+      --primary: #3b5978;
+      --primary-dark: #28405a;
+      --primary-grad: linear-gradient(135deg, #4b6d8f 0%, #3b5978 60%, #2c445e 100%);
+      --primary-soft: #e0ecf7;
       --bg: #f1f5f9;
+      --border: #dce5ef;
+      --shadow: 0 4px 16px rgba(44, 68, 94, 0.08);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -42,8 +48,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding-bottom: calc(82px + env(safe-area-inset-bottom));
-      transition: background 0.25s ease;
+      padding-bottom: calc(86px + env(safe-area-inset-bottom));
+      transition: background 0.3s ease;
     }
 
     /* Header */
@@ -51,11 +57,11 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      background: var(--primary);
+      background: var(--primary-grad);
       color: #fff;
-      padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      transition: background 0.25s ease;
+      padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+      box-shadow: 0 3px 12px rgba(154, 52, 18, 0.18);
+      transition: background 0.3s ease;
     }
     .header-row {
       display: flex;
@@ -65,25 +71,35 @@
       margin: 0 auto;
     }
     .app-title {
-      font-size: 1.08rem;
-      font-weight: 700;
+      font-size: 1.12rem;
+      font-weight: 800;
       margin: 0;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
     .app-sub {
-      font-size: 0.76rem;
-      opacity: 0.9;
-      margin-top: 2px;
+      font-size: 0.78rem;
+      opacity: 0.92;
+      margin-top: 3px;
+      letter-spacing: 0.2px;
+    }
+    .header-badge {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .offline-banner {
       display: none;
-      background: #334155;
-      color: #f8fafc;
+      background: #443731;
+      color: #fef3c7;
       font-size: 0.82rem;
       text-align: center;
       padding: 8px 12px;
-      font-weight: 500;
+      font-weight: 600;
     }
     .offline-banner.show { display: block; }
 
@@ -91,12 +107,12 @@
     .container {
       max-width: 680px;
       margin: 0 auto;
-      padding: 14px 14px 24px;
+      padding: 16px 14px 24px;
     }
 
-    .tab-page { display: none; animation: fadeIn 0.2s ease; }
+    .tab-page { display: none; animation: fadeIn 0.22s ease; }
     .tab-page.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Cards */
     .card {
@@ -109,11 +125,12 @@
     }
     .card-title {
       font-size: 1.02rem;
-      font-weight: 700;
-      margin: 0 0 10px;
+      font-weight: 800;
+      margin: 0 0 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      color: var(--text);
     }
 
     /* Buttons */
@@ -123,40 +140,41 @@
       justify-content: center;
       gap: 6px;
       border: none;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.92rem;
-      font-weight: 600;
+      border-radius: 13px;
+      padding: 11px 14px;
+      font-size: 0.93rem;
+      font-weight: 700;
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.1s ease, opacity 0.15s ease;
     }
     .btn:active { transform: scale(0.97); }
-    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary { background: var(--primary-grad); color: #fff; box-shadow: 0 3px 10px rgba(200, 90, 50, 0.22); }
+    body.rainy-theme .btn-primary { box-shadow: 0 3px 10px rgba(59, 89, 120, 0.22); }
     .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
     .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
-    .btn-sm { padding: 6px 11px; font-size: 0.82rem; border-radius: 9px; }
+    .btn-sm { padding: 6px 11px; font-size: 0.82rem; border-radius: 10px; }
     .btn-full { width: 100%; }
 
-    /* Veg Card */
+    /* Veg Card - Warm Washi & Wooden Frame Style */
     .veg-jp-box {
-      background: #f0fdf4;
-      border: 2px solid #16a34a;
-      border-radius: 14px;
+      background: var(--card-warm);
+      border: 2px solid #e7c9a9;
+      border-radius: 15px;
       padding: 16px;
-      margin-bottom: 12px;
+      margin-bottom: 13px;
     }
     .veg-jp-heading {
       font-size: 1.2rem;
       font-weight: 800;
-      color: #14532d;
+      color: #9a3412;
       margin-bottom: 8px;
       line-height: 1.4;
     }
     .veg-jp-body {
       font-size: 1.02rem;
-      color: #1e293b;
-      line-height: 1.65;
+      color: #2c2420;
+      line-height: 1.68;
       margin-bottom: 10px;
     }
     .veg-tags {
@@ -166,18 +184,18 @@
       margin-top: 8px;
     }
     .veg-tag {
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+      background: #fff1f2;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.82rem;
       font-weight: 700;
     }
     .veg-tag.ok {
-      background: #dcfce7;
-      color: #166534;
-      border-color: #bbf7d0;
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
     }
 
     /* Toggle rows */
@@ -186,13 +204,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
-      background: #f8fafc;
-      border-radius: 12px;
+      padding: 11px 13px;
+      background: #fcfaf7;
+      border-radius: 13px;
       border: 1px solid var(--border);
     }
-    .toggle-label { font-weight: 600; font-size: 0.92rem; }
-    .toggle-sub { font-size: 0.78rem; color: var(--muted); }
+    .toggle-label { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+    .toggle-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
     .switch {
       position: relative;
       display: inline-block;
@@ -204,7 +222,7 @@
     .slider {
       position: absolute;
       inset: 0;
-      background: #cbd5e1;
+      background: #d6ccc2;
       border-radius: 999px;
       transition: 0.2s;
       cursor: pointer;
@@ -221,51 +239,51 @@
       transition: 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .switch input:checked + .slider { background: #16a34a; }
+    .switch input:checked + .slider { background: #c85a32; }
     .switch input:checked + .slider:before { transform: translateX(20px); }
 
     /* Phrases */
     .phrase-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
     .phrase-btn {
       text-align: left;
-      background: #f8fafc;
+      background: #fcfaf7;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 13px;
+      padding: 12px 13px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
     }
-    .phrase-btn:active { background: #e2e8f0; }
+    .phrase-btn:active { background: #f3eadf; }
     .phrase-zh { font-weight: 700; font-size: 0.92rem; color: var(--text); }
     .phrase-jp { font-size: 0.85rem; color: var(--primary-dark); margin-top: 3px; }
 
-    /* Weather Banner */
+    /* Weather Banner - Cozy Travel Sky */
     .weather-banner {
-      background: linear-gradient(135deg, #0ea5e9, #0369a1);
+      background: linear-gradient(135deg, #3b82a6 0%, #2b5876 100%);
       color: #fff;
       border-radius: var(--radius);
-      padding: 14px 16px;
+      padding: 15px 16px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 14px rgba(43, 88, 118, 0.2);
     }
-    .weather-main { display: flex; align-items: center; gap: 10px; }
-    .weather-temp { font-size: 1.65rem; font-weight: 800; line-height: 1; }
-    .weather-meta { font-size: 0.82rem; opacity: 0.95; line-height: 1.4; }
+    .weather-main { display: flex; align-items: center; gap: 11px; }
+    .weather-temp { font-size: 1.7rem; font-weight: 800; line-height: 1; }
+    .weather-meta { font-size: 0.82rem; opacity: 0.94; line-height: 1.4; margin-top: 2px; }
     .weather-refresh {
       background: rgba(255,255,255,0.2);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 10px;
-      padding: 7px 10px;
+      border-radius: 11px;
+      padding: 7px 11px;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
 
@@ -274,11 +292,12 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: #e2e8f0;
+      background: #ebe2d6;
       padding: 5px;
       border-radius: 14px;
       margin-bottom: 12px;
     }
+    body.rainy-theme .mode-switch { background: #dbe4ee; }
     .mode-btn {
       border: none;
       border-radius: 10px;
@@ -286,19 +305,19 @@
       font-size: 0.92rem;
       font-weight: 700;
       background: transparent;
-      color: #475569;
+      color: #6b5e55;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .mode-btn.active-sunny {
       background: #ffffff;
-      color: #15803d;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      color: #c85a32;
+      box-shadow: 0 2px 6px rgba(120, 74, 42, 0.12);
     }
     .mode-btn.active-rainy {
-      background: #334155;
+      background: #3b5978;
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 6px rgba(44, 68, 94, 0.2);
     }
 
     /* Day Tabs */
@@ -311,37 +330,46 @@
     .day-tab {
       background: #fff;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 13px;
       padding: 9px 6px;
       text-align: center;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.88rem;
       color: var(--muted);
     }
     .day-tab span { display: block; font-size: 0.74rem; font-weight: 500; margin-top: 2px; }
     .day-tab.active {
-      background: var(--primary);
+      background: var(--primary-grad);
       color: #fff;
-      border-color: var(--primary);
+      border-color: transparent;
+      box-shadow: 0 3px 8px rgba(200, 90, 50, 0.22);
+    }
+    body.rainy-theme .day-tab.active {
+      box-shadow: 0 3px 8px rgba(59, 89, 120, 0.22);
     }
 
     /* Daily Weather Forecast Strip */
     .day-forecast {
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
-      color: #0c4a6e;
-      border-radius: 12px;
-      padding: 10px 12px;
+      background: #fff8ed;
+      border: 1px solid #f3dcc0;
+      color: #7c3f1d;
+      border-radius: 13px;
+      padding: 10px 13px;
       font-size: 0.85rem;
       margin-bottom: 12px;
-      line-height: 1.45;
+      line-height: 1.48;
+    }
+    body.rainy-theme .day-forecast {
+      background: #edf4fb;
+      border-color: #c8dced;
+      color: #28405a;
     }
     .rain-alert {
       background: var(--warn-bg);
       border: 1px solid var(--warn-border);
       color: var(--warn-text);
-      border-radius: 12px;
+      border-radius: 13px;
       padding: 10px 12px;
       margin-bottom: 12px;
       display: flex;
@@ -349,7 +377,7 @@
       justify-content: space-between;
       gap: 10px;
       font-size: 0.84rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Timeline */
@@ -357,8 +385,8 @@
       background: #fff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--primary);
-      border-radius: 14px;
-      padding: 14px;
+      border-radius: 15px;
+      padding: 14px 15px;
       margin-bottom: 12px;
       box-shadow: var(--shadow);
     }
@@ -367,24 +395,24 @@
       background: var(--primary-soft);
       color: var(--primary-dark);
       font-size: 0.78rem;
-      font-weight: 700;
-      padding: 3px 9px;
+      font-weight: 800;
+      padding: 4px 10px;
       border-radius: 999px;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
-    .spot-title { font-size: 1rem; font-weight: 700; margin: 0 0 6px; }
-    .spot-desc { font-size: 0.88rem; color: #334155; line-height: 1.55; margin: 0 0 8px; }
+    .spot-title { font-size: 1.02rem; font-weight: 800; margin: 0 0 6px; color: var(--text); }
+    .spot-desc { font-size: 0.89rem; color: #4a3f3a; line-height: 1.58; margin: 0 0 9px; }
     .veg-note {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-      border-radius: 10px;
-      padding: 8px 10px;
+      background: #fdf6ec;
+      border: 1px solid #f1dec4;
+      color: #7c3f1d;
+      border-radius: 11px;
+      padding: 9px 11px;
       font-size: 0.84rem;
-      line-height: 1.5;
-      margin-bottom: 8px;
+      line-height: 1.52;
+      margin-bottom: 9px;
     }
-    .map-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .map-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
 
     /* Taxi Cards */
     .taxi-grid {
@@ -393,9 +421,9 @@
       gap: 10px;
     }
     .taxi-card {
-      background: #fff;
+      background: #fffcf8;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 15px;
       padding: 13px 12px;
       text-align: left;
       cursor: pointer;
@@ -404,35 +432,37 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .taxi-card:active { background: #f1f5f9; transform: scale(0.98); }
-    .taxi-zh { font-weight: 700; font-size: 0.92rem; color: var(--text); }
-    .taxi-jp { font-size: 0.8rem; color: var(--primary-dark); margin-top: 4px; font-weight: 600; }
-    .taxi-tag { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+    .taxi-card:active { background: #f5ece0; transform: scale(0.98); }
+    .taxi-zh { font-weight: 800; font-size: 0.92rem; color: var(--text); }
+    .taxi-jp { font-size: 0.8rem; color: var(--primary-dark); margin-top: 4px; font-weight: 700; }
+    .taxi-tag { font-size: 0.72rem; color: var(--muted); margin-top: 7px; }
 
     /* Info rows */
     .info-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 9px 0;
+      padding: 10px 0;
       border-bottom: 1px dashed var(--border);
       font-size: 0.9rem;
       gap: 10px;
     }
     .info-row:last-child { border-bottom: none; }
     .info-label { color: var(--muted); flex-shrink: 0; }
-    .info-val { font-weight: 600; text-align: right; }
+    .info-val { font-weight: 700; text-align: right; color: var(--text); }
 
     /* Currency & Checklist */
     .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-    .input-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+    .input-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; font-weight: 700; }
     .input-group input {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border: 1px solid #dfd4c6;
+      background: #fffcf8;
+      border-radius: 11px;
       font-size: 1rem;
       font-weight: 700;
+      color: var(--text);
     }
 
     .check-item {
@@ -440,20 +470,21 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 0;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f3ece2;
       gap: 10px;
     }
-    .check-left { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; }
+    .check-left { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; font-size: 0.92rem; }
     .check-left input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); }
     .check-left.done span { text-decoration: line-through; color: var(--muted); }
-    .del-btn { background: none; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
+    .del-btn { background: none; border: none; color: #b5a69b; font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
 
     .add-row { display: flex; gap: 8px; margin-top: 12px; }
     .add-row input {
       flex: 1;
       padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border: 1px solid #dfd4c6;
+      background: #fffcf8;
+      border-radius: 11px;
       font-size: 0.92rem;
     }
 
@@ -464,12 +495,12 @@
       left: 0;
       right: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 252, 248, 0.96);
+      backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+      padding: 7px 4px calc(7px + env(safe-area-inset-bottom));
     }
     .nav-btn {
       background: none;
@@ -479,12 +510,12 @@
       align-items: center;
       gap: 3px;
       padding: 6px 2px;
-      color: #64748b;
+      color: #8c7b70;
       font-size: 0.74rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
-    .nav-btn .nav-ico { font-size: 1.3rem; line-height: 1; }
+    .nav-btn .nav-ico { font-size: 1.32rem; line-height: 1; }
     .nav-btn.active { color: var(--primary); }
 
     /* Fullscreen Modal */
@@ -493,7 +524,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: #0f172a;
+      background: #1f1916;
       color: #fff;
       padding: calc(20px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
       flex-direction: column;
@@ -509,27 +540,27 @@
       font-size: 2rem;
       font-weight: 800;
       line-height: 1.45;
-      color: #fef08a;
+      color: #fde68a;
       margin-bottom: 16px;
       word-break: break-word;
     }
     .modal-sub {
       font-size: 1.15rem;
-      line-height: 1.6;
-      color: #e2e8f0;
+      line-height: 1.65;
+      color: #f5efe6;
       margin-bottom: 14px;
     }
     .modal-zh {
       font-size: 0.95rem;
-      color: #94a3b8;
+      color: #b5a69b;
     }
     .modal-close {
       width: 100%;
       padding: 14px;
       border-radius: 14px;
       border: none;
-      background: #ffffff;
-      color: #0f172a;
+      background: #fffbf5;
+      color: #2c2420;
       font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
@@ -538,15 +569,15 @@
 
     .toast {
       position: fixed;
-      bottom: 92px;
+      bottom: 94px;
       left: 50%;
       transform: translateX(-50%);
-      background: #0f172a;
-      color: #fff;
+      background: #2c2420;
+      color: #fffbf5;
       padding: 10px 18px;
       border-radius: 999px;
       font-size: 0.86rem;
-      font-weight: 600;
+      font-weight: 700;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s;
@@ -560,9 +591,10 @@
   <header class="app-header">
     <div class="header-row">
       <div>
-        <h1 class="app-title">🌿 福岡家族旅遊隨身手冊</h1>
-        <div class="app-sub">2026/12/11 (五) – 12/13 (日) ・ 三天兩夜暖心版</div>
+        <h1 class="app-title">⛩️ 福岡家族旅遊隨身手冊</h1>
+        <div class="app-sub">2026/12/11 (五) – 12/13 (日) ・ 冬日暖心之旅</div>
       </div>
+      <div class="header-badge">FUK 3D2N</div>
     </div>
   </header>
 
@@ -575,7 +607,7 @@
     <!-- TAB 1: 素食溝通小卡 -->
     <section id="tab-veg" class="tab-page active">
       <div class="card">
-        <div class="card-title">🥬 專屬日文素食溝通卡</div>
+        <div class="card-title">🍱 專屬日文素食溝通卡</div>
         <div class="veg-jp-box">
           <div class="veg-jp-heading">私はベジタリアン（素食）です。</div>
           <div id="vegJpText" class="veg-jp-body"></div>
@@ -594,7 +626,7 @@
               <div class="toggle-label">固定排除：肉類、海鮮、柴魚/動物高湯</div>
               <div class="toggle-sub">かつおだし・魚介エキス・肉エキス 皆不可</div>
             </div>
-            <span style="font-size:0.8rem;font-weight:700;color:#15803d;">已鎖定</span>
+            <span style="font-size:0.8rem;font-weight:800;color:#c85a32;">已鎖定</span>
           </div>
           <div class="toggle-item">
             <div>
@@ -668,7 +700,7 @@
     <section id="tab-itinerary" class="tab-page">
       <div class="weather-banner">
         <div class="weather-main">
-          <div id="liveIcon" style="font-size:2rem;">🌤️</div>
+          <div id="liveIcon" style="font-size:2.1rem;">🌤️</div>
           <div>
             <div style="display:flex;align-items:baseline;gap:8px;">
               <span id="liveTemp" class="weather-temp">--°C</span>
@@ -779,7 +811,7 @@
         </div>
         <div class="info-row" style="padding:4px 0 0;border:none;">
           <span class="info-label" style="font-size:0.82rem;">設定匯率（1 JPY = ? TWD）</span>
-          <input type="number" id="rateInput" step="0.001" value="0.215" style="width:86px;padding:5px 8px;border:1px solid #cbd5e1;border-radius:8px;text-align:right;font-weight:700;" oninput="saveRateAndConvert()" />
+          <input type="number" id="rateInput" step="0.001" value="0.215" style="width:86px;padding:5px 8px;border:1px solid #dfd4c6;border-radius:8px;text-align:right;font-weight:700;" oninput="saveRateAndConvert()" />
         </div>
       </div>
 
@@ -798,10 +830,10 @@
   <!-- Bottom Nav -->
   <nav class="bottom-nav">
     <button class="nav-btn active" data-tab="veg" onclick="switchTab('veg')">
-      <span class="nav-ico">🥬</span><span>素食小卡</span>
+      <span class="nav-ico">🍱</span><span>素食小卡</span>
     </button>
     <button class="nav-btn" data-tab="itinerary" onclick="switchTab('itinerary')">
-      <span class="nav-ico">🗓️</span><span>旅遊行程</span>
+      <span class="nav-ico">🗺️</span><span>旅遊行程</span>
     </button>
     <button class="nav-btn" data-tab="taxi" onclick="switchTab('taxi')">
       <span class="nav-ico">🚕</span><span>交通住宿</span>
@@ -838,7 +870,7 @@
             time: '11:30 – 13:00',
             title: '博多車站暖心蔬食午餐',
             desc: '剛下飛機先在車站內輕鬆用餐補充體力，完全不用吹冷風找路。',
-            veg: '🥬 推薦：Evah Dining（JR 博多站 Deitos 一品通內，純素便當與飯糰）或 Soup Stock Tokyo（Amu Plaza B1F，認明菜單 VEG 標示蔬食湯品與咖哩）。',
+            veg: '🍱 推薦：Evah Dining（JR 博多站 Deitos 一品通內，純素便當與飯糰）或 Soup Stock Tokyo（Amu Plaza B1F，認明菜單 VEG 標示蔬食湯品與咖哩）。',
             maps: [
               { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
               { name: 'Soup Stock Tokyo 博多', q: 'Soup Stock Tokyo Amu Plaza Hakata' }
@@ -865,7 +897,7 @@
             time: '18:30 – 20:30',
             title: '溫馨蔬食晚餐 → 博多車站聖誕市集',
             desc: '晚餐後漫步博多車站前廣場，欣賞 12 月限定的璀璨聖誕燈飾與市集氣氛，拍張美美的家族合照後早點回房補眠。',
-            veg: '🥬 推薦：Tomoyasu Seisakusho（冷泉町義式餐酒館，有專屬純素菜單，環境舒適）或 Bugoro All Vegan（純素博多拉麵，座位僅 3 席、只收現金，建議事先預約）。',
+            veg: '🍱 推薦：Tomoyasu Seisakusho（冷泉町義式餐酒館，有專屬純素菜單，環境舒適）或 Bugoro All Vegan（純素博多拉麵，座位僅 3 席、只收現金，建議事先預約）。',
             maps: [
               { name: 'Tomoyasu Seisakusho', q: 'Tomoyasu Seisakusho Cafe Hakata' },
               { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
@@ -885,7 +917,7 @@
             time: '12:00 – 14:30',
             title: '太宰府質感蔬食午餐＆九州國立博物館',
             desc: '在充滿綠意與文化氣息的環境中悠閒享用午餐，餐後可順遊九州國立博物館（室內空間舒適好走）。',
-            veg: '🥬 推薦：太宰府 Iinoji（九州國立博物館內，提供無五辛蔬食料理）或 梅之花太宰府別莊自然庵（天滿宮後方，精緻素食懷石料理，需事先預約）。',
+            veg: '🍱 推薦：太宰府 Iinoji（九州國立博物館內，提供無五辛蔬食料理）或 梅之花太宰府別莊自然庵（天滿宮後方，精緻素食懷石料理，需事先預約）。',
             maps: [
               { name: '九州國立博物館 / Iinoji', q: 'Kyushu National Museum Fukuoka' },
               { name: '梅之花 自然庵', q: 'Umenohana Dazaifu Shizenan' }
@@ -895,7 +927,7 @@
             time: '17:30 – 20:30',
             title: '返回天神 / 博多晚餐與伴手禮採買',
             desc: '回到市區享受美味的蔬食晚餐，並採買非液體類伴手禮，順便準備明天早上的早餐食材回公寓。',
-            veg: '🥬 推薦：Sonu Sonu（天神高評價全素餐廳，餐點與甜點皆精緻）或至天神岩田屋 B2F / 博多站 Evah Dining 挑選純素熟食與飯糰。',
+            veg: '🍱 推薦：Sonu Sonu（天神高評價全素餐廳，餐點與甜點皆精緻）或至天神岩田屋 B2F / 博多站 Evah Dining 挑選純素熟食與飯糰。',
             maps: [
               { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' },
               { name: '天神岩田屋百貨', q: 'Iwataya Department Store Fukuoka' }
@@ -907,7 +939,7 @@
             time: '07:30 – 08:15',
             title: '公寓廚房悠閒早餐 → 整理退房',
             desc: '運用 SPAZIO 6 房內廚房輕鬆加熱昨晚買好的純素飯糰、熱湯與水果，大家吃飽喝足再從容退房。',
-            veg: '🥬 若想現買早餐，博多站內 Evah Dining 早上 07:00 即開始營業。',
+            veg: '🍱 若想現買早餐，博多站內 Evah Dining 早上 07:00 即開始營業。',
             maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
           },
           {
@@ -930,7 +962,7 @@
             time: '11:30 – 13:30',
             title: '博多車站全室內蔬食午餐＆逛街',
             desc: '不出站即可輕鬆用餐，飯後順逛博多阪急百貨與 Amu Plaza。',
-            veg: '🥬 推薦：Evah Dining（JR 博多站 Deitos 一品通內）或 Soup Stock Tokyo（Amu Plaza B1F，VEG 標示蔬食）。',
+            veg: '🍱 推薦：Evah Dining（JR 博多站 Deitos 一品通內）或 Soup Stock Tokyo（Amu Plaza B1F，VEG 標示蔬食）。',
             maps: [
               { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
               { name: 'Amu Plaza 博多', q: 'AMU PLAZA Hakata' }
@@ -957,7 +989,7 @@
             time: '18:30 – 20:30',
             title: '天神地下街直達純素晚餐',
             desc: '全程地下連通道不淋雨！享受溫熱的香料蔬菜咖哩或義式蔬食。',
-            veg: '🥬 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，天神地下街直達，提供純素無五辛蔬菜咖哩）或 Tomoyasu Seisakusho。',
+            veg: '🍱 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，天神地下街直達，提供純素無五辛蔬菜咖哩）或 Tomoyasu Seisakusho。',
             maps: [
               { name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' },
               { name: '天神地下街', q: 'Tenjin Underground Shopping Center' }
@@ -975,7 +1007,7 @@
             time: '12:00 – 13:30',
             title: '暖呼呼純素拉麵或蔬食咖啡廳午餐',
             desc: '搭計程車幾分鐘即可抵達餐廳，下雨天喝碗熱湯最幸福。',
-            veg: '🥬 推薦：Bugoro All Vegan（週六全天營業，純素拉麵，建議預約）或 Sonu Sonu（天神全素餐廳，環境寬敞好坐）。',
+            veg: '🍱 推薦：Bugoro All Vegan（週六全天營業，純素拉麵，建議預約）或 Sonu Sonu（天神全素餐廳，環境寬敞好坐）。',
             maps: [
               { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
               { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' }
@@ -985,7 +1017,7 @@
             time: '14:00 – 17:30',
             title: '天神地下街＆百貨群 或 LaLaport 福岡（全室內）',
             desc: '兩者皆為超好逛的全室內動線！想優雅買伴手禮可逛天神地下街與岩田屋百貨；想逛大型商場與看鋼彈可搭計程車去 LaLaport 福岡。',
-            veg: '🥬 岩田屋 B2F 有 Evah Dining 專櫃，方便順手買熟食與隔日早餐。',
+            veg: '🍱 岩田屋 B2F 有 Evah Dining 專櫃，方便順手買熟食與隔日早餐。',
             maps: [
               { name: '天神地下街', q: 'Tenjin Underground Shopping Center' },
               { name: 'LaLaport 福岡', q: 'Mitsui Shopping Park LaLaport Fukuoka' }
@@ -995,7 +1027,7 @@
             time: '18:00 – 20:00',
             title: '室內溫馨晚餐 或 外帶熟食回公寓享用',
             desc: '若外面雨勢較大，外帶熱騰騰的純素料理回 SPAZIO 6 搭配熱茶，一家人輕鬆聊天也很愜意。',
-            veg: '🥬 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，純素無五辛蔬菜咖哩）或 Evah Dining 純素熟食便當。',
+            veg: '🍱 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，純素無五辛蔬菜咖哩）或 Evah Dining 純素熟食便當。',
             maps: [{ name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' }]
           }
         ],
@@ -1121,6 +1153,8 @@
       document.body.classList.toggle('rainy-theme', mode === 'rainy');
       document.getElementById('btnSunny').className = 'mode-btn' + (mode === 'sunny' ? ' active-sunny' : '');
       document.getElementById('btnRainy').className = 'mode-btn' + (mode === 'rainy' ? ' active-rainy' : '');
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) metaTheme.setAttribute('content', mode === 'rainy' ? '#3b5978' : '#c85a32');
       renderItinerary();
     }
 
