@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>福岡 3 天 2 夜家族旅遊隨身手冊</title>
-  <meta name="theme-color" content="#c85a32" />
+  <meta name="theme-color" content="#18181b" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="福岡家族遊" />
@@ -14,32 +14,34 @@
   <link rel="apple-touch-icon" href="./icon-512.png" />
   <style>
     :root {
-      --primary: #c85a32;
-      --primary-dark: #9a3412;
-      --primary-grad: linear-gradient(135deg, #d97736 0%, #c85a32 55%, #b4432a 100%);
-      --primary-soft: #ffedd5;
-      --accent: #d97706;
-      --bg: #faf6f0;
+      --primary: #c81e2b;
+      --primary-dark: #991b1b;
+      --primary-grad: linear-gradient(135deg, #dc2626 0%, #c81e2b 58%, #991b1b 100%);
+      --header-bg: linear-gradient(135deg, #1f1f23 0%, #141417 100%);
+      --primary-soft: #fee2e2;
+      --accent: #c81e2b;
+      --bg: #f6f6f7;
       --card: #ffffff;
-      --card-warm: #fffbf5;
-      --text: #2c2420;
-      --muted: #786a62;
-      --border: #ede4d8;
-      --warn-bg: #fef3c7;
-      --warn-border: #f59e0b;
-      --warn-text: #92400e;
-      --radius: 18px;
-      --shadow: 0 4px 16px rgba(120, 74, 42, 0.07);
+      --card-warm: #ffffff;
+      --text: #18181b;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --warn-bg: #fef2f2;
+      --warn-border: #ef4444;
+      --warn-text: #991b1b;
+      --radius: 16px;
+      --shadow: 0 4px 16px rgba(24, 24, 27, 0.06);
     }
 
     body.rainy-theme {
-      --primary: #3b5978;
-      --primary-dark: #28405a;
-      --primary-grad: linear-gradient(135deg, #4b6d8f 0%, #3b5978 60%, #2c445e 100%);
-      --primary-soft: #e0ecf7;
+      --primary: #334155;
+      --primary-dark: #1e293b;
+      --primary-grad: linear-gradient(135deg, #475569 0%, #334155 60%, #1e293b 100%);
+      --header-bg: linear-gradient(135deg, #273240 0%, #18202b 100%);
+      --primary-soft: #e2e8f0;
       --bg: #f1f5f9;
-      --border: #dce5ef;
-      --shadow: 0 4px 16px rgba(44, 68, 94, 0.08);
+      --border: #dbe3ec;
+      --shadow: 0 4px 16px rgba(30, 41, 59, 0.07);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -57,11 +59,12 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      background: var(--primary-grad);
+      background: var(--header-bg);
       color: #fff;
       padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
-      box-shadow: 0 3px 12px rgba(154, 52, 18, 0.18);
-      transition: background 0.3s ease;
+      border-bottom: 3px solid var(--primary);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
     .header-row {
       display: flex;
@@ -121,8 +124,8 @@
 
     .offline-banner {
       display: none;
-      background: #443731;
-      color: #fef3c7;
+      background: #18181b;
+      color: #ffffff;
       font-size: 0.82rem;
       text-align: center;
       padding: 8px 12px;
@@ -176,7 +179,7 @@
       transition: transform 0.1s ease, opacity 0.15s ease;
     }
     .btn:active { transform: scale(0.97); }
-    .btn-primary { background: var(--primary-grad); color: #fff; box-shadow: 0 3px 10px rgba(200, 90, 50, 0.22); }
+    .btn-primary { background: var(--primary-grad); color: #fff; box-shadow: 0 3px 10px rgba(200, 30, 43, 0.24); }
     body.rainy-theme .btn-primary { box-shadow: 0 3px 10px rgba(59, 89, 120, 0.22); }
     .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
     .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
@@ -186,7 +189,7 @@
     /* Veg Card - Warm Washi & Wooden Frame Style */
     .veg-jp-box {
       background: var(--card-warm);
-      border: 2px solid #e7c9a9;
+      border: 2px solid #18181b;
       border-radius: 15px;
       padding: 16px;
       margin-bottom: 13px;
@@ -194,13 +197,13 @@
     .veg-jp-heading {
       font-size: 1.2rem;
       font-weight: 800;
-      color: #9a3412;
+      color: #c81e2b;
       margin-bottom: 8px;
       line-height: 1.4;
     }
     .veg-jp-body {
       font-size: 1.02rem;
-      color: #2c2420;
+      color: #18181b;
       line-height: 1.68;
       margin-bottom: 10px;
     }
@@ -220,8 +223,8 @@
       font-weight: 700;
     }
     .veg-tag.ok {
-      background: #fef3c7;
-      color: #92400e;
+      background: #fee2e2;
+      color: #991b1b;
       border-color: #fde68a;
     }
 
@@ -232,7 +235,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 11px 13px;
-      background: #fcfaf7;
+      background: #fafafa;
       border-radius: 13px;
       border: 1px solid var(--border);
     }
@@ -249,7 +252,7 @@
     .slider {
       position: absolute;
       inset: 0;
-      background: #d6ccc2;
+      background: #d4d4d8;
       border-radius: 999px;
       transition: 0.2s;
       cursor: pointer;
@@ -266,14 +269,14 @@
       transition: 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .switch input:checked + .slider { background: #c85a32; }
+    .switch input:checked + .slider { background: #c81e2b; }
     .switch input:checked + .slider:before { transform: translateX(20px); }
 
     /* Phrases */
     .phrase-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
     .phrase-btn {
       text-align: left;
-      background: #fcfaf7;
+      background: #fafafa;
       border: 1px solid var(--border);
       border-radius: 13px;
       padding: 12px 13px;
@@ -283,13 +286,13 @@
       align-items: center;
       gap: 10px;
     }
-    .phrase-btn:active { background: #f3eadf; }
+    .phrase-btn:active { background: #f4f4f5; }
     .phrase-zh { font-weight: 700; font-size: 0.92rem; color: var(--text); }
     .phrase-jp { font-size: 0.85rem; color: var(--primary-dark); margin-top: 3px; }
 
     /* Weather Banner - Cozy Travel Sky */
     .weather-banner {
-      background: linear-gradient(135deg, #3b82a6 0%, #2b5876 100%);
+      background: linear-gradient(135deg, #27272a 0%, #18181b 100%);
       color: #fff;
       border-radius: var(--radius);
       padding: 15px 16px;
@@ -298,7 +301,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      box-shadow: 0 4px 14px rgba(43, 88, 118, 0.2);
+      box-shadow: 0 4px 14px rgba(24, 24, 27, 0.16);
     }
     .weather-main { display: flex; align-items: center; gap: 11px; }
     .weather-temp { font-size: 1.7rem; font-weight: 800; line-height: 1; }
@@ -319,7 +322,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: #ebe2d6;
+      background: #e4e4e7;
       padding: 5px;
       border-radius: 14px;
       margin-bottom: 12px;
@@ -332,14 +335,14 @@
       font-size: 0.92rem;
       font-weight: 700;
       background: transparent;
-      color: #6b5e55;
+      color: #52525b;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .mode-btn.active-sunny {
       background: #ffffff;
-      color: #c85a32;
-      box-shadow: 0 2px 6px rgba(120, 74, 42, 0.12);
+      color: #c81e2b;
+      box-shadow: 0 2px 6px rgba(24, 24, 27, 0.1);
     }
     .mode-btn.active-rainy {
       background: #3b5978;
@@ -370,7 +373,7 @@
       background: var(--primary-grad);
       color: #fff;
       border-color: transparent;
-      box-shadow: 0 3px 8px rgba(200, 90, 50, 0.22);
+      box-shadow: 0 3px 8px rgba(200, 30, 43, 0.22);
     }
     body.rainy-theme .day-tab.active {
       box-shadow: 0 3px 8px rgba(59, 89, 120, 0.22);
@@ -378,9 +381,10 @@
 
     /* Daily Weather Forecast Strip */
     .day-forecast {
-      background: #fff8ed;
-      border: 1px solid #f3dcc0;
-      color: #7c3f1d;
+      background: #ffffff;
+      border: 1px solid #e4e4e7;
+      border-left: 4px solid #c81e2b;
+      color: #18181b;
       border-radius: 13px;
       padding: 10px 13px;
       font-size: 0.85rem;
@@ -428,11 +432,11 @@
       margin-bottom: 7px;
     }
     .spot-title { font-size: 1.02rem; font-weight: 800; margin: 0 0 6px; color: var(--text); }
-    .spot-desc { font-size: 0.89rem; color: #4a3f3a; line-height: 1.58; margin: 0 0 9px; }
+    .spot-desc { font-size: 0.89rem; color: #3f3f46; line-height: 1.58; margin: 0 0 9px; }
     .veg-note {
-      background: #fdf6ec;
-      border: 1px solid #f1dec4;
-      color: #7c3f1d;
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      color: #27272a;
       border-radius: 11px;
       padding: 9px 11px;
       font-size: 0.84rem;
@@ -448,7 +452,7 @@
       gap: 10px;
     }
     .taxi-card {
-      background: #fffcf8;
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 15px;
       padding: 13px 12px;
@@ -459,7 +463,7 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .taxi-card:active { background: #f5ece0; transform: scale(0.98); }
+    .taxi-card:active { background: #f4f4f5; transform: scale(0.98); }
     .taxi-zh { font-weight: 800; font-size: 0.92rem; color: var(--text); }
     .taxi-jp { font-size: 0.8rem; color: var(--primary-dark); margin-top: 4px; font-weight: 700; }
     .taxi-tag { font-size: 0.72rem; color: var(--muted); margin-top: 7px; }
@@ -484,8 +488,8 @@
     .input-group input {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #dfd4c6;
-      background: #fffcf8;
+      border: 1px solid #d4d4d8;
+      background: #ffffff;
       border-radius: 11px;
       font-size: 1rem;
       font-weight: 700;
@@ -497,7 +501,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 0;
-      border-bottom: 1px solid #f3ece2;
+      border-bottom: 1px solid #f4f4f5;
       gap: 10px;
     }
     .check-left { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; font-size: 0.92rem; }
@@ -509,8 +513,8 @@
     .add-row input {
       flex: 1;
       padding: 10px 12px;
-      border: 1px solid #dfd4c6;
-      background: #fffcf8;
+      border: 1px solid #d4d4d8;
+      background: #ffffff;
       border-radius: 11px;
       font-size: 0.92rem;
     }
@@ -522,7 +526,7 @@
       left: 0;
       right: 0;
       z-index: 50;
-      background: rgba(255, 252, 248, 0.96);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       display: grid;
@@ -537,7 +541,7 @@
       align-items: center;
       gap: 3px;
       padding: 6px 2px;
-      color: #8c7b70;
+      color: #71717a;
       font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
@@ -551,7 +555,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: #1f1916;
+      background: #111113;
       color: #fff;
       padding: calc(20px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
       flex-direction: column;
@@ -586,8 +590,8 @@
       padding: 14px;
       border-radius: 14px;
       border: none;
-      background: #fffbf5;
-      color: #2c2420;
+      background: #ffffff;
+      color: #18181b;
       font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
@@ -612,7 +616,7 @@
       height: 92vh;
       height: calc(100dvh - env(safe-area-inset-top) - 14px);
       max-height: calc(100dvh - env(safe-area-inset-top) - 14px);
-      background: #faf6f0;
+      background: #f6f6f7;
       border-radius: 22px 22px 0 0;
       display: flex;
       flex-direction: column;
@@ -622,7 +626,7 @@
     }
     @keyframes slideUp { from { transform: translateY(40px); opacity: 0.6; } to { transform: translateY(0); opacity: 1; } }
     .sheet-header {
-      background: linear-gradient(135deg, #443731 0%, #2c2420 100%);
+      background: linear-gradient(135deg, #27272a 0%, #141417 100%);
       color: #fffbf5;
       padding: 15px 16px;
       display: flex;
@@ -664,14 +668,14 @@
       cursor: pointer;
     }
     .meat-day-btn.active {
-      background: #443731;
-      color: #fef3c7;
-      border-color: #443731;
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
     }
     .meat-card {
       background: #fff;
       border: 1px solid var(--border);
-      border-left: 4px solid #b45309;
+      border-left: 4px solid #c81e2b;
       border-radius: 14px;
       padding: 13px 14px;
       margin-bottom: 11px;
@@ -679,8 +683,8 @@
     }
     .meat-slot {
       display: inline-block;
-      background: #fef3c7;
-      color: #92400e;
+      background: #fee2e2;
+      color: #991b1b;
       font-size: 0.76rem;
       font-weight: 800;
       padding: 3px 9px;
@@ -689,8 +693,8 @@
     }
     .meat-same-table {
       display: inline-block;
-      background: #ffedd5;
-      color: #9a3412;
+      background: #18181b;
+      color: #ffffff;
       font-size: 0.74rem;
       font-weight: 800;
       padding: 3px 8px;
@@ -700,7 +704,7 @@
     .meat-note {
       font-size: 0.82rem;
       color: #786a62;
-      background: #fcfaf7;
+      background: #fafafa;
       border-radius: 9px;
       padding: 7px 10px;
       margin: 7px 0 8px;
@@ -1655,7 +1659,7 @@
       document.getElementById('btnSunny').className = 'mode-btn' + (mode === 'sunny' ? ' active-sunny' : '');
       document.getElementById('btnRainy').className = 'mode-btn' + (mode === 'rainy' ? ' active-rainy' : '');
       const metaTheme = document.querySelector('meta[name="theme-color"]');
-      if (metaTheme) metaTheme.setAttribute('content', mode === 'rainy' ? '#3b5978' : '#c85a32');
+      if (metaTheme) metaTheme.setAttribute('content', mode === 'rainy' ? '#1e293b' : '#18181b');
       renderItinerary();
     }
 
