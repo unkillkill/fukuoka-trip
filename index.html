@@ -69,6 +69,7 @@
       justify-content: space-between;
       max-width: 680px;
       margin: 0 auto;
+      gap: 8px;
     }
     .app-title {
       font-size: 1.12rem;
@@ -82,14 +83,40 @@
       margin-top: 3px;
       letter-spacing: 0.2px;
     }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
     .header-badge {
-      background: rgba(255, 255, 255, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      padding: 4px 9px;
       border-radius: 999px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       white-space: nowrap;
+    }
+    /* Discreet small non-veg pocket button */
+    .pocket-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s ease, background 0.2s ease;
+    }
+    .pocket-btn:active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.32);
     }
 
     .offline-banner {
@@ -518,7 +545,7 @@
     .nav-btn .nav-ico { font-size: 1.32rem; line-height: 1; }
     .nav-btn.active { color: var(--primary); }
 
-    /* Fullscreen Modal */
+    /* Fullscreen Modal (JP text / Taxi) */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -567,6 +594,116 @@
       margin-top: 20px;
     }
 
+    /* Private Pocket Dining Sheet (Non-Veg) */
+    .sheet-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 110;
+      background: rgba(28, 22, 18, 0.62);
+      backdrop-filter: blur(4px);
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .sheet-backdrop.open { display: flex; }
+    .sheet-panel {
+      width: 100%;
+      max-width: 680px;
+      max-height: 86vh;
+      background: #faf6f0;
+      border-radius: 22px 22px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 -8px 28px rgba(0,0,0,0.28);
+      animation: slideUp 0.22s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(40px); opacity: 0.6; } to { transform: translateY(0); opacity: 1; } }
+    .sheet-header {
+      background: linear-gradient(135deg, #443731 0%, #2c2420 100%);
+      color: #fffbf5;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sheet-title { font-size: 1.02rem; font-weight: 800; margin: 0; }
+    .sheet-sub { font-size: 0.74rem; color: #d6ccc2; margin-top: 2px; }
+    .sheet-close-btn {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .sheet-body {
+      padding: 14px 14px calc(22px + env(safe-area-inset-bottom));
+      overflow-y: auto;
+    }
+    .meat-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .meat-day-btn {
+      flex: 1;
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .meat-day-btn.active {
+      background: #443731;
+      color: #fef3c7;
+      border-color: #443731;
+    }
+    .meat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 4px solid #b45309;
+      border-radius: 14px;
+      padding: 13px 14px;
+      margin-bottom: 11px;
+      box-shadow: var(--shadow);
+    }
+    .meat-slot {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .meat-same-table {
+      display: inline-block;
+      background: #ffedd5;
+      color: #9a3412;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-left: 4px;
+    }
+    .meat-note {
+      font-size: 0.82rem;
+      color: #786a62;
+      background: #fcfaf7;
+      border-radius: 9px;
+      padding: 7px 10px;
+      margin: 7px 0 8px;
+      border: 1px dashed #e5d8c8;
+    }
+
     .toast {
       position: fixed;
       bottom: 94px;
@@ -581,20 +718,238 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s;
-      z-index: 120;
+      z-index: 130;
     }
     .toast.show { opacity: 1; }
+  
+    /* Minimalist Animated Fukuoka Silhouettes */
+    .app-header {
+      overflow: hidden;
+    }
+    .header-row {
+      position: relative;
+      z-index: 2;
+    }
+    .header-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .h-svg {
+      position: absolute;
+      color: #ffffff;
+      opacity: 0.16;
+    }
+    .h-torii {
+      right: 92px;
+      bottom: -4px;
+      width: 58px;
+      height: 58px;
+      animation: gentleFloat 6s ease-in-out infinite;
+    }
+    .h-lantern {
+      right: 162px;
+      top: 4px;
+      width: 28px;
+      height: 36px;
+      transform-origin: top center;
+      animation: gentleSway 4.2s ease-in-out infinite;
+    }
+    .h-plum {
+      left: 48%;
+      top: 10px;
+      width: 18px;
+      height: 18px;
+      opacity: 0.2;
+      animation: slowSpinFloat 9s ease-in-out infinite;
+    }
+
+    /* Fixed background minimalist silhouettes */
+    .bg-decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      color: var(--primary);
+      transition: color 0.3s ease;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+    .bg-svg {
+      position: absolute;
+      opacity: 0.065;
+      will-change: transform;
+    }
+    .bg-ramen {
+      top: 16%;
+      right: -12px;
+      width: 96px;
+      height: 96px;
+      animation: gentleFloat 8s ease-in-out infinite;
+    }
+    .bg-mikoshi {
+      top: 46%;
+      left: -14px;
+      width: 104px;
+      height: 104px;
+      animation: mikoshiBob 6.5s ease-in-out infinite;
+    }
+    .bg-tower {
+      bottom: 14%;
+      right: 6px;
+      width: 78px;
+      height: 112px;
+      opacity: 0.055;
+      animation: gentleFloat 10s ease-in-out infinite reverse;
+    }
+    .bg-plum-1 {
+      top: 28%;
+      left: 8%;
+      width: 34px;
+      height: 34px;
+      opacity: 0.07;
+      animation: slowSpinFloat 11s ease-in-out infinite;
+    }
+    .bg-plum-2 {
+      bottom: 24%;
+      left: 16%;
+      width: 26px;
+      height: 26px;
+      opacity: 0.06;
+      animation: slowSpinFloat 13s ease-in-out infinite reverse;
+    }
+    .steam-path {
+      animation: steamRise 3.2s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+    @keyframes gentleSway {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg); }
+    }
+    @keyframes mikoshiBob {
+      0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
+    }
+    @keyframes slowSpinFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(22deg); }
+    }
+    @keyframes steamRise {
+      0%, 100% { transform: translateY(2px); opacity: 0.4; }
+      50% { transform: translateY(-3px); opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .h-svg, .bg-svg, .steam-path { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
+  <!-- Minimalist Fukuoka Background Silhouettes -->
+  <div class="bg-decor" aria-hidden="true">
+    <!-- 拉麵碗縮影 -->
+    <svg class="bg-svg bg-ramen" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path class="steam-path" d="M28 24 Q24 18 28 12"/>
+      <path class="steam-path" d="M40 22 Q36 15 40 9" style="animation-delay:0.5s"/>
+      <path class="steam-path" d="M52 24 Q48 18 52 12" style="animation-delay:1s"/>
+      <line x1="14" y1="36" x2="66" y2="36"/>
+      <path d="M16 36 C16 56 26 64 40 64 C54 64 64 56 64 36 Z" fill="currentColor" fill-opacity="0.18"/>
+      <path d="M30 64 L32 70 L48 70 L50 64"/>
+      <line x1="48" y1="36" x2="66" y2="24"/>
+      <line x1="53" y1="36" x2="68" y2="28"/>
+    </svg>
+
+    <!-- 祭典神轎縮影（博多祇園山笠風格） -->
+    <svg class="bg-svg bg-mikoshi" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <!-- 頂部鳳凰/飾結 -->
+      <circle cx="48" cy="18" r="4" fill="currentColor"/>
+      <!-- 弧形轎頂 -->
+      <path d="M20 34 Q48 22 76 34 L70 40 Q48 32 26 40 Z" fill="currentColor" fill-opacity="0.22"/>
+      <!-- 神轎本體 -->
+      <rect x="30" y="40" width="36" height="22" rx="2" fill="currentColor" fill-opacity="0.14"/>
+      <line x1="42" y1="40" x2="42" y2="62"/>
+      <line x1="54" y1="40" x2="54" y2="62"/>
+      <!-- 扛轎長木桿 -->
+      <line x1="8" y1="62" x2="88" y2="62" stroke-width="3.2"/>
+      <line x1="16" y1="68" x2="80" y2="68" stroke-width="2.4"/>
+    </svg>
+
+    <!-- 福岡塔縮影 -->
+    <svg class="bg-svg bg-tower" viewBox="0 0 64 96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+      <line x1="32" y1="6" x2="32" y2="20"/>
+      <polygon points="32,20 18,88 46,88" fill="currentColor" fill-opacity="0.14"/>
+      <line x1="25" y1="46" x2="39" y2="46"/>
+      <line x1="22" y1="64" x2="42" y2="64"/>
+      <line x1="32" y1="20" x2="32" y2="88"/>
+      <line x1="10" y1="88" x2="54" y2="88"/>
+    </svg>
+
+    <!-- 太宰府梅花縮影 1 & 2 -->
+    <svg class="bg-svg bg-plum-1" viewBox="0 0 32 32" fill="currentColor">
+      <circle cx="16" cy="8" r="4.5"/>
+      <circle cx="23.5" cy="13.5" r="4.5"/>
+      <circle cx="20.6" cy="22.3" r="4.5"/>
+      <circle cx="11.4" cy="22.3" r="4.5"/>
+      <circle cx="8.5" cy="13.5" r="4.5"/>
+    </svg>
+    <svg class="bg-svg bg-plum-2" viewBox="0 0 32 32" fill="currentColor">
+      <circle cx="16" cy="8" r="4.5"/>
+      <circle cx="23.5" cy="13.5" r="4.5"/>
+      <circle cx="20.6" cy="22.3" r="4.5"/>
+      <circle cx="11.4" cy="22.3" r="4.5"/>
+      <circle cx="8.5" cy="13.5" r="4.5"/>
+    </svg>
+  </div>
+
 
   <header class="app-header">
+    <div class="header-decor" aria-hidden="true">
+      <!-- 鳥居縮影 -->
+      <svg class="h-svg h-torii" viewBox="0 0 64 64" fill="currentColor">
+        <path d="M8 18 Q32 23 56 18 L54 23 Q32 27 10 23 Z"/>
+        <rect x="14" y="29" width="36" height="4" rx="1.5"/>
+        <rect x="30" y="23" width="4" height="7"/>
+        <rect x="19" y="23" width="5" height="36" rx="1.5"/>
+        <rect x="40" y="23" width="5" height="36" rx="1.5"/>
+      </svg>
+      <!-- 屋台小燈籠縮影 -->
+      <svg class="h-svg h-lantern" viewBox="0 0 40 52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="20" y1="2" x2="20" y2="9"/>
+        <rect x="14" y="9" width="12" height="3" rx="1" fill="currentColor"/>
+        <ellipse cx="20" cy="26" rx="11" ry="14" fill="currentColor" fill-opacity="0.25"/>
+        <line x1="10" y1="21" x2="30" y2="21"/>
+        <line x1="10" y1="31" x2="30" y2="31"/>
+        <rect x="15" y="40" width="10" height="3" rx="1" fill="currentColor"/>
+        <line x1="20" y1="43" x2="20" y2="49"/>
+      </svg>
+      <!-- 梅花縮影 -->
+      <svg class="h-svg h-plum" viewBox="0 0 32 32" fill="currentColor">
+        <circle cx="16" cy="8" r="4.5"/>
+        <circle cx="23.5" cy="13.5" r="4.5"/>
+        <circle cx="20.6" cy="22.3" r="4.5"/>
+        <circle cx="11.4" cy="22.3" r="4.5"/>
+        <circle cx="8.5" cy="13.5" r="4.5"/>
+        <circle cx="16" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
     <div class="header-row">
       <div>
         <h1 class="app-title">⛩️ 福岡家族旅遊隨身手冊</h1>
         <div class="app-sub">2026/12/11 (五) – 12/13 (日) ・ 冬日暖心之旅</div>
       </div>
-      <div class="header-badge">FUK 3D2N</div>
+      <div class="header-actions">
+        <div class="header-badge">FUK 3D2N</div>
+        <button class="pocket-btn" onclick="openMeatModal()" title="個人美食口袋名單" aria-label="個人美食口袋名單">🍜</button>
+      </div>
     </div>
   </header>
 
@@ -843,7 +1198,7 @@
     </button>
   </nav>
 
-  <!-- Fullscreen Modal -->
+  <!-- Fullscreen Modal (JP / Taxi) -->
   <div id="fullModal" class="modal-overlay" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <div id="modalJpBig" class="modal-jp-big"></div>
@@ -851,6 +1206,27 @@
       <div id="modalZh" class="modal-zh"></div>
     </div>
     <button class="modal-close" onclick="closeModal()">關閉全螢幕</button>
+  </div>
+
+  <!-- Private Non-Veg Pocket Sheet -->
+  <div id="meatModal" class="sheet-backdrop" onclick="closeMeatModal()">
+    <div class="sheet-panel" onclick="event.stopPropagation()">
+      <div class="sheet-header">
+        <div>
+          <h2 class="sheet-title">🍜 個人美食口袋名單（葷食）</h2>
+          <div class="sheet-sub">僅點擊右上角 🍜 時展開・關閉即完全隱藏</div>
+        </div>
+        <button class="sheet-close-btn" onclick="closeMeatModal()">✕ 關閉</button>
+      </div>
+      <div class="sheet-body">
+        <div class="meat-controls">
+          <button class="meat-day-btn" data-mday="1" onclick="selectMeatDay(1)">Day 1 (12/11)</button>
+          <button class="meat-day-btn" data-mday="2" onclick="selectMeatDay(2)">Day 2 (12/12)</button>
+          <button class="meat-day-btn" data-mday="3" onclick="selectMeatDay(3)">Day 3 (12/13)</button>
+        </div>
+        <div id="meatList"></div>
+      </div>
+    </div>
   </div>
 
   <div id="toast" class="toast"></div>
@@ -1048,6 +1424,89 @@
       }
     };
 
+    // Private Non-Veg Dining Pocket List (synced with family locations)
+    const MEAT_LIST = {
+      1: [
+        {
+          slot: 'Day 1 午餐（博多車站內・晴雨皆宜）',
+          title: '博多麵街道 豚骨拉麵 / 水炊雞肉鍋・牛腸鍋',
+          desc: '老婆與岳母在 Deitos 1F (Evah Dining) 或 Amu Plaza B1F 用餐時，你直接搭電梯上 Deitos 2F「博多麵街道」吃 ShinShin、博多一幸舍；或上 Amu Plaza 9F–10F 吃牛腸鍋（笑樂／大山）或華味鳥水炊鍋。',
+          meet: '📍 會合點：同棟博多車站內，吃完步行 2 分鐘即會合。',
+          maps: [
+            { name: '博多麵街道 (Deitos 2F)', q: 'Hakata Menkaido Fukuoka' },
+            { name: 'ShinShin 博多站店', q: 'Hakata Ramen ShinShin Hakata Deitos' },
+            { name: '牛腸鍋 笑樂 博多站', q: 'Motsunabe Shoraku Amu Plaza Hakata' }
+          ]
+        },
+        {
+          slot: 'Day 1 晚餐（晴天：祇園／中洲／博多）',
+          sameTable: true,
+          title: '中洲屋台 / 博多燒鳥・牛腸鍋（或同桌吃 Tomoyasu）',
+          desc: '若她們去吃 Bugoro All Vegan（住吉區），你可以順路去中洲屋台體驗豚骨拉麵、關東煮與烤串，或去吃「博多祇園鐵鍋餃子」；若想一起坐著吃，Tomoyasu Seisakusho 本身就是義式餐酒館，有一般葷食與純素菜單。',
+          meet: '📍 會合點：中洲川端／博多車站聖誕市集。',
+          maps: [
+            { name: '中洲屋台街', q: 'Nakasu Yatai Fukuoka' },
+            { name: '博多祇園鐵鍋餃子', q: 'Hakata Gion Tetsunabe' }
+          ]
+        },
+        {
+          slot: 'Day 1 晚餐（雨天：天神 Solaria Stage）',
+          sameTable: true,
+          title: 'Solaria Stage B2F 美食街 / ちゃぶや一般咖哩',
+          desc: '雨天她們在 Solaria Stage 2F 吃純素蔬菜咖哩時，你可以直接同桌點店內的肉類／海鮮咖哩；或下樓到同棟 B2F 吃極味屋系漢堡排、牛腸鍋、博多烏龍麵與炸豬排。',
+          meet: '📍 會合點：同棟 Solaria Stage 內，全程免淋雨。',
+          maps: [
+            { name: 'Solaria Stage B2F', q: 'Solaria Stage Fukuoka' }
+          ]
+        }
+      ],
+      2: [
+        {
+          slot: 'Day 2 午餐（晴天：太宰府）',
+          sameTable: true,
+          title: '太宰府 Iinoji 和牛壽喜燒＆鰻魚飯 / 一蘭合格拉麵',
+          desc: '最推直接在九州國立博物館內的「太宰府 Iinoji」一家三口同桌吃——她們吃無五辛蔬食，你點九州和牛壽喜燒或石鍋鰻魚飯三吃！若分頭吃，參道上有「一蘭太宰府參道店（五角合格碗）」與明太子茶泡飯。',
+          meet: '📍 會合點：太宰府參道口或九州國立博物館大廳。',
+          maps: [
+            { name: '一蘭 太宰府參道店', q: 'Ichiran Dazaifu Sando' },
+            { name: '太宰府 Iinoji (九博內)', q: 'Kyushu National Museum Fukuoka' }
+          ]
+        },
+        {
+          slot: 'Day 2 午餐（雨天：天神／住吉）',
+          title: '極味屋和牛漢堡排 / 元祖博多明太子重 / ShinShin 本店',
+          desc: '若她們去天神 Sonu Sonu，步行幾分鐘就能吃到排隊名店「極味屋（Parco B1F）」炭火和牛漢堡排、或「ShinShin 天神本店」；若下午改逛 LaLaport 福岡，3F 美食街有滿滿博多拉麵、海鮮丼與牛舌。',
+          meet: '📍 會合點：天神地下街中央廣場或 LaLaport 1F 鋼彈前。',
+          maps: [
+            { name: '極味屋 福岡 Parco', q: 'Kiwamiya Fukuoka Parco' },
+            { name: '元祖博多明太子重', q: 'Ganso Hakata Mentaikoju' },
+            { name: 'ShinShin 天神本店', q: 'Hakata Ramen ShinShin Tenjin' }
+          ]
+        },
+        {
+          slot: 'Day 2 晚餐（天神／博多）',
+          title: '博多燒肉 / 吉塚鰻魚屋 / 九州生魚片居酒屋',
+          desc: '最後一晚大啖福岡重頭戲！推薦中洲川端百年名店「吉塚鰻魚屋」、天神／博多車站的九州黑毛和牛燒肉（如燒肉冠軍），或到博多車站地下街喝杯生啤配博多芝麻鯖魚（ごまさば）。',
+          meet: '📍 會合點：天神岩田屋或博多車站筑紫口（一起搭計程車回公寓）。',
+          maps: [
+            { name: '吉塚鰻魚屋', q: 'Yoshizuka Unagiya Fukuoka' },
+            { name: '燒肉冠軍 博多站', q: 'Yakiniku Champion Amu Plaza Hakata' }
+          ]
+        }
+      ],
+      3: [
+        {
+          slot: 'Day 3 早餐（飯店周邊／福岡機場國際線）',
+          title: '超商熱食 或 福岡機場國際線餐廳',
+          desc: '早上時間緊湊，可在 SPAZIO 6 附近超商（Lawson 炸雞君、7-11 飯糰）快速解決，或 08:30 抵達福岡機場國際線報到安檢後，在候機室餐飲區吃碗博多拉麵或牛肉烏龍麵當作收尾！',
+          meet: '📍 會合點：福岡機場國際線登機門。',
+          maps: [
+            { name: '福岡機場國際線', q: 'Fukuoka Airport International Terminal' }
+          ]
+        }
+      ]
+    };
+
     const TAXI_CARDS = [
       { zh: '我們的住宿 (SPAZIO 6)', jp: 'SPAZIO 6 Hakata Station\n（博多区比恵町）', note: '請司機導航 SPAZIO 6 Hakata Station' },
       { zh: '博多車站（筑紫口）', jp: '博多駅 筑紫口', note: '新幹線側・離住宿最近' },
@@ -1074,6 +1533,7 @@
 
     // ---------- State ----------
     let currentDay = 1;
+    let currentMeatDay = 1;
     let weatherMode = 'sunny';
     let dailyWeatherMap = {};
 
@@ -1085,6 +1545,44 @@
         btn.classList.toggle('active', btn.dataset.tab === tabId);
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------- Private Non-Veg Pocket Sheet ----------
+    function openMeatModal() {
+      currentMeatDay = currentDay;
+      renderMeatList();
+      document.getElementById('meatModal').classList.add('open');
+    }
+    function closeMeatModal() {
+      document.getElementById('meatModal').classList.remove('open');
+    }
+    function selectMeatDay(d) {
+      currentMeatDay = d;
+      renderMeatList();
+    }
+    function renderMeatList() {
+      document.querySelectorAll('.meat-day-btn').forEach(b => {
+        b.classList.toggle('active', Number(b.dataset.mday) === currentMeatDay);
+      });
+      const items = MEAT_LIST[currentMeatDay] || [];
+      document.getElementById('meatList').innerHTML = items.map(item => `
+        <div class="meat-card">
+          <div>
+            <span class="meat-slot">${item.slot}</span>
+            ${item.sameTable ? '<span class="meat-same-table">👨‍👩‍👧 可同桌選項</span>' : ''}
+          </div>
+          <h3 class="spot-title">${item.title}</h3>
+          <p class="spot-desc">${item.desc}</p>
+          <div class="meat-note">${item.meet}</div>
+          <div class="map-links">
+            ${(item.maps || []).map(m => `
+              <a class="btn btn-soft btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.q)}">
+                📍 ${m.name}
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
     }
 
     // ---------- Veg Card ----------
