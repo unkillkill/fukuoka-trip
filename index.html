@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>福岡 3 天 2 夜家族旅遊隨身手冊</title>
+  <meta name="theme-color" content="#15803d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="福岡家族遊" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+  <style>
+    :root {
+      --primary: #15803d;
+      --primary-dark: #166534;
+      --primary-soft: #dcfce7;
+      --accent: #0f766e;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --warn-bg: #fef9c3;
+      --warn-border: #facc15;
+      --warn-text: #854d0e;
+      --radius: 16px;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    }
+
+    body.rainy-theme {
+      --primary: #475569;
+      --primary-dark: #334155;
+      --primary-soft: #e2e8f0;
+      --bg: #f1f5f9;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: calc(82px + env(safe-area-inset-bottom));
+      transition: background 0.25s ease;
+    }
+
+    /* Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--primary);
+      color: #fff;
+      padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.25s ease;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .app-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 0.3px;
+    }
+    .app-sub {
+      font-size: 0.76rem;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .offline-banner {
+      display: none;
+      background: #334155;
+      color: #f8fafc;
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 8px 12px;
+      font-weight: 500;
+    }
+    .offline-banner.show { display: block; }
+
+    /* Container */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 14px 24px;
+    }
+
+    .tab-page { display: none; animation: fadeIn 0.2s ease; }
+    .tab-page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s ease, opacity 0.15s ease;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-sm { padding: 6px 11px; font-size: 0.82rem; border-radius: 9px; }
+    .btn-full { width: 100%; }
+
+    /* Veg Card */
+    .veg-jp-box {
+      background: #f0fdf4;
+      border: 2px solid #16a34a;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .veg-jp-heading {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #14532d;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .veg-jp-body {
+      font-size: 1.02rem;
+      color: #1e293b;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .veg-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .veg-tag {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .veg-tag.ok {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #bbf7d0;
+    }
+
+    /* Toggle rows */
+    .toggle-list { display: flex; flex-direction: column; gap: 10px; }
+    .toggle-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .toggle-label { font-weight: 600; font-size: 0.92rem; }
+    .toggle-sub { font-size: 0.78rem; color: var(--muted); }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #cbd5e1;
+      border-radius: 999px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .slider:before {
+      content: "";
+      position: absolute;
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .switch input:checked + .slider { background: #16a34a; }
+    .switch input:checked + .slider:before { transform: translateX(20px); }
+
+    /* Phrases */
+    .phrase-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .phrase-btn {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .phrase-btn:active { background: #e2e8f0; }
+    .phrase-zh { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+    .phrase-jp { font-size: 0.85rem; color: var(--primary-dark); margin-top: 3px; }
+
+    /* Weather Banner */
+    .weather-banner {
+      background: linear-gradient(135deg, #0ea5e9, #0369a1);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+    .weather-main { display: flex; align-items: center; gap: 10px; }
+    .weather-temp { font-size: 1.65rem; font-weight: 800; line-height: 1; }
+    .weather-meta { font-size: 0.82rem; opacity: 0.95; line-height: 1.4; }
+    .weather-refresh {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Mode Switcher */
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: #e2e8f0;
+      padding: 5px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+    .mode-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      background: transparent;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mode-btn.active-sunny {
+      background: #ffffff;
+      color: #15803d;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .mode-btn.active-rainy {
+      background: #334155;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    /* Day Tabs */
+    .day-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .day-tab {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 6px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .day-tab span { display: block; font-size: 0.74rem; font-weight: 500; margin-top: 2px; }
+    .day-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Daily Weather Forecast Strip */
+    .day-forecast {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: #0c4a6e;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+    .rain-alert {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    /* Timeline */
+    .timeline-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .time-badge {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .spot-title { font-size: 1rem; font-weight: 700; margin: 0 0 6px; }
+    .spot-desc { font-size: 0.88rem; color: #334155; line-height: 1.55; margin: 0 0 8px; }
+    .veg-note {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .map-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+
+    /* Taxi Cards */
+    .taxi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .taxi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 12px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .taxi-card:active { background: #f1f5f9; transform: scale(0.98); }
+    .taxi-zh { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+    .taxi-jp { font-size: 0.8rem; color: var(--primary-dark); margin-top: 4px; font-weight: 600; }
+    .taxi-tag { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+
+    /* Info rows */
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.9rem;
+      gap: 10px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { color: var(--muted); flex-shrink: 0; }
+    .info-val { font-weight: 600; text-align: right; }
+
+    /* Currency & Checklist */
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .input-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+      gap: 10px;
+    }
+    .check-left { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; }
+    .check-left input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); }
+    .check-left.done span { text-decoration: line-through; color: var(--muted); }
+    .del-btn { background: none; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
+
+    .add-row { display: flex; gap: 8px; margin-top: 12px; }
+    .add-row input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.92rem;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 2px;
+      color: #64748b;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-btn .nav-ico { font-size: 1.3rem; line-height: 1; }
+    .nav-btn.active { color: var(--primary); }
+
+    /* Fullscreen Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #0f172a;
+      color: #fff;
+      padding: calc(20px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-content {
+      margin: auto 0;
+      text-align: center;
+    }
+    .modal-jp-big {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.45;
+      color: #fef08a;
+      margin-bottom: 16px;
+      word-break: break-word;
+    }
+    .modal-sub {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 14px;
+    }
+    .modal-zh {
+      font-size: 0.95rem;
+      color: #94a3b8;
+    }
+    .modal-close {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 92px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 120;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-row">
+      <div>
+        <h1 class="app-title">🌿 福岡家族旅遊隨身手冊</h1>
+        <div class="app-sub">2026/12/11 (五) – 12/13 (日) ・ 三天兩夜暖心版</div>
+      </div>
+    </div>
+  </header>
+
+  <div id="offlineBanner" class="offline-banner">
+    📡 目前為離線模式，行程與素食小卡皆可正常使用
+  </div>
+
+  <main class="container">
+
+    <!-- TAB 1: 素食溝通小卡 -->
+    <section id="tab-veg" class="tab-page active">
+      <div class="card">
+        <div class="card-title">🥬 專屬日文素食溝通卡</div>
+        <div class="veg-jp-box">
+          <div class="veg-jp-heading">私はベジタリアン（素食）です。</div>
+          <div id="vegJpText" class="veg-jp-body"></div>
+          <div id="vegTags" class="veg-tags"></div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="openVegModal()">
+          🔍 全螢幕放大出示給店員看
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚙️ 客製化飲食設定（自動儲存）</div>
+        <div class="toggle-list">
+          <div class="toggle-item">
+            <div>
+              <div class="toggle-label">固定排除：肉類、海鮮、柴魚/動物高湯</div>
+              <div class="toggle-sub">かつおだし・魚介エキス・肉エキス 皆不可</div>
+            </div>
+            <span style="font-size:0.8rem;font-weight:700;color:#15803d;">已鎖定</span>
+          </div>
+          <div class="toggle-item">
+            <div>
+              <div class="toggle-label">不吃五辛（蔥、蒜、洋蔥、韭菜）</div>
+              <div class="toggle-sub">開啟後會告知店員不要加五辛</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="optAllium" onchange="updateVegCard()" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div>
+              <div class="toggle-label">不吃蛋與奶製品（純素 Vegan）</div>
+              <div class="toggle-sub">關閉代表「蛋奶素可接受」</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="optEggDairy" onchange="updateVegCard()" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div>
+              <div class="toggle-label">不吃酒精成分（料理酒／味醂）</div>
+              <div class="toggle-sub">開啟後會提醒店員避免含酒精調味</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="optAlcohol" onchange="updateVegCard()" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💬 點餐常用大字短句（點擊放大）</div>
+        <div class="phrase-grid">
+          <button class="phrase-btn" onclick="openTextModal('この料理に「かつおだし」や「魚・肉のエキス」は入っていますか？', '這道料理有加柴魚高湯或魚肉萃取物嗎？')">
+            <div>
+              <div class="phrase-zh">請問這道有加柴魚高湯或肉/魚高湯嗎？</div>
+              <div class="phrase-jp">かつおだしや魚・肉のエキスは入っていますか？</div>
+            </div>
+            <span>🔍</span>
+          </button>
+          <button class="phrase-btn" onclick="openTextModal('お肉・お魚・だしを抜いて、野菜だけで作ることはできますか？', '可以去掉肉、魚與高湯，只用蔬菜製作嗎？')">
+            <div>
+              <div class="phrase-zh">可以去掉肉魚高湯，只做蔬菜版本嗎？</div>
+              <div class="phrase-jp">野菜だけで作ることはできますか？</div>
+            </div>
+            <span>🔍</span>
+          </button>
+          <button class="phrase-btn" onclick="openTextModal('ソースやドレッシングに動物性の成分は入っていますか？', '醬汁或沙拉醬裡有含動物性成分嗎？')">
+            <div>
+              <div class="phrase-zh">請問醬汁或沙拉醬有含動物性成分嗎？</div>
+              <div class="phrase-jp">ソースに動物性の成分は入っていますか？</div>
+            </div>
+            <span>🔍</span>
+          </button>
+          <button class="phrase-btn" onclick="openTextModal('ご対応ありがとうございます。とても美味しかったです！', '謝謝您的貼心協助，非常好吃！')">
+            <div>
+              <div class="phrase-zh">謝謝您的協助，非常好吃！</div>
+              <div class="phrase-jp">ありがとうございます。とても美味しかったです！</div>
+            </div>
+            <span>🔍</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 旅遊行程 -->
+    <section id="tab-itinerary" class="tab-page">
+      <div class="weather-banner">
+        <div class="weather-main">
+          <div id="liveIcon" style="font-size:2rem;">🌤️</div>
+          <div>
+            <div style="display:flex;align-items:baseline;gap:8px;">
+              <span id="liveTemp" class="weather-temp">--°C</span>
+              <span id="liveDesc" style="font-size:0.9rem;font-weight:700;">福岡即時天氣讀取中...</span>
+            </div>
+            <div id="liveMeta" class="weather-meta">體感 --°C ・ 福岡市</div>
+          </div>
+        </div>
+        <button class="weather-refresh" onclick="fetchWeather(true)">🔄 更新</button>
+      </div>
+
+      <div class="mode-switch">
+        <button id="btnSunny" class="mode-btn active-sunny" onclick="setWeatherMode('sunny')">☀️ 晴天版行程</button>
+        <button id="btnRainy" class="mode-btn" onclick="setWeatherMode('rainy')">🌧️ 雨天備案（全室內）</button>
+      </div>
+
+      <div class="day-tabs">
+        <button class="day-tab active" data-day="1" onclick="selectDay(1)">Day 1<span>12/11 (五)</span></button>
+        <button class="day-tab" data-day="2" onclick="selectDay(2)">Day 2<span>12/12 (六)</span></button>
+        <button class="day-tab" data-day="3" onclick="selectDay(3)">Day 3<span>12/13 (日)</span></button>
+      </div>
+
+      <div id="dayForecastBox" class="day-forecast"></div>
+      <div id="rainAlertBox" class="rain-alert" style="display:none;">
+        <span>☔ 當日降雨機率偏高，建議切換室內備案！</span>
+        <button class="btn btn-sm btn-primary" onclick="setWeatherMode('rainy')">切換雨天版</button>
+      </div>
+
+      <div id="itineraryList"></div>
+    </section>
+
+    <!-- TAB 3: 交通與住宿 -->
+    <section id="tab-taxi" class="tab-page">
+      <div class="card">
+        <div class="card-title">🚕 計程車超大字體目的地卡（點擊全螢幕）</div>
+        <p style="font-size:0.84rem;color:var(--muted);margin:0 0 12px;">
+          三人同行搭計程車最輕鬆，直接點卡片放大給司機看即可。
+        </p>
+        <div id="taxiGrid" class="taxi-grid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏠 住宿資訊：SPAZIO 6 Hakata Station</div>
+        <div class="info-row">
+          <span class="info-label">入住 / 退房</span>
+          <span class="info-val">12/11 15:00 – 12/13 11:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">訂房編號</span>
+          <span class="info-val">
+            1800807656
+            <button class="btn btn-soft btn-sm" style="margin-left:6px;" onclick="copyText('1800807656', '已複製訂房編號')">複製</button>
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">房型 / 住客</span>
+          <span class="info-val">Economy Twin Room（3 位大人・yu shi）</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">地理位置</span>
+          <span class="info-val">博多區比恵町（距機場約 10 分鐘車程）</span>
+        </div>
+        <div class="veg-note" style="margin-top:10px;">
+          💡 <strong>貼心提醒：</strong>公寓式住宿 15:00 才開放自助入住，出發前記得收好房東寄的入住密碼。房內附設廚房，晚上可買純素熟食或隔天早餐回房加熱，非常方便！
+        </div>
+        <a class="btn btn-primary btn-full" style="margin-top:8px;" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=SPAZIO+6+Hakata+Station+Fukuoka">
+          📍 開啟 Google Maps 導航至住宿
+        </a>
+      </div>
+    </section>
+
+    <!-- TAB 4: 航班與工具 -->
+    <section id="tab-tools" class="tab-page">
+      <div class="card">
+        <div class="card-title">✈️ 台灣虎航來回航班</div>
+        <div class="info-row">
+          <span class="info-label">去程 IT240</span>
+          <span class="info-val">12/11 (五) 06:45 桃園 T1 → 10:00 福岡</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">回程 IT241</span>
+          <span class="info-val">12/13 (日) 10:55 福岡 → 12:40 桃園 T1</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">同行旅客</span>
+          <span class="info-val" style="font-size:0.82rem;">TSAI YAO CHUNG<br>CHANG YU SHI / CHANG LI NAI</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">行李規定</span>
+          <span class="info-val" style="color:#b45309;">三人皆無託運行李（手提限 10kg）</span>
+        </div>
+        <div class="veg-note" style="margin-top:10px;background:#fffbeb;border-color:#fde68a;color:#92400e;">
+          🎒 <strong>無託運小提醒：</strong>液體單瓶超過 100ml 不可隨身攜帶。伴手禮（如點心禮盒、飲品）建議在回程過安檢後的<strong>福岡機場免稅店</strong>購買最安心！
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💴 即時日幣換算（JPY ↔ TWD）</div>
+        <div class="calc-grid">
+          <div class="input-group">
+            <label for="jpyInput">日幣 JPY (¥)</label>
+            <input type="number" id="jpyInput" placeholder="例如 1500" oninput="convertFromJpy()" />
+          </div>
+          <div class="input-group">
+            <label for="twdInput">台幣 TWD (NT$)</label>
+            <input type="number" id="twdInput" placeholder="約合台幣" oninput="convertFromTwd()" />
+          </div>
+        </div>
+        <div class="info-row" style="padding:4px 0 0;border:none;">
+          <span class="info-label" style="font-size:0.82rem;">設定匯率（1 JPY = ? TWD）</span>
+          <input type="number" id="rateInput" step="0.001" value="0.215" style="width:86px;padding:5px 8px;border:1px solid #cbd5e1;border-radius:8px;text-align:right;font-weight:700;" oninput="saveRateAndConvert()" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">✅ 行前檢查清單（自動儲存）</div>
+        <div id="checklistContainer"></div>
+        <div class="add-row">
+          <input type="text" id="newCheckItem" placeholder="新增自訂提醒項目..." onkeydown="if(event.key==='Enter') addCheckItem()" />
+          <button class="btn btn-primary btn-sm" onclick="addCheckItem()">新增</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="veg" onclick="switchTab('veg')">
+      <span class="nav-ico">🥬</span><span>素食小卡</span>
+    </button>
+    <button class="nav-btn" data-tab="itinerary" onclick="switchTab('itinerary')">
+      <span class="nav-ico">🗓️</span><span>旅遊行程</span>
+    </button>
+    <button class="nav-btn" data-tab="taxi" onclick="switchTab('taxi')">
+      <span class="nav-ico">🚕</span><span>交通住宿</span>
+    </button>
+    <button class="nav-btn" data-tab="tools" onclick="switchTab('tools')">
+      <span class="nav-ico">✈️</span><span>航班工具</span>
+    </button>
+  </nav>
+
+  <!-- Fullscreen Modal -->
+  <div id="fullModal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div id="modalJpBig" class="modal-jp-big"></div>
+      <div id="modalSub" class="modal-sub"></div>
+      <div id="modalZh" class="modal-zh"></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">關閉全螢幕</button>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ---------- Data ----------
+    const ITINERARY = {
+      sunny: {
+        1: [
+          {
+            time: '10:00 – 11:30',
+            title: '抵達福岡機場 → 博多車站寄放行李',
+            desc: '三人無託運行李可快速通關！出關後直接搭計程車前往博多車站（約 15 分鐘），將隨身行李寄放於車站置物櫃，輕鬆開啟旅程。',
+            maps: [{ name: '博多車站', q: 'Hakata Station Fukuoka' }]
+          },
+          {
+            time: '11:30 – 13:00',
+            title: '博多車站暖心蔬食午餐',
+            desc: '剛下飛機先在車站內輕鬆用餐補充體力，完全不用吹冷風找路。',
+            veg: '🥬 推薦：Evah Dining（JR 博多站 Deitos 一品通內，純素便當與飯糰）或 Soup Stock Tokyo（Amu Plaza B1F，認明菜單 VEG 標示蔬食湯品與咖哩）。',
+            maps: [
+              { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
+              { name: 'Soup Stock Tokyo 博多', q: 'Soup Stock Tokyo Amu Plaza Hakata' }
+            ]
+          },
+          {
+            time: '13:30 – 16:30',
+            title: '櫛田神社 → 川端通商店街 → 博多運河城',
+            desc: '三個景點皆在步行 5–10 分鐘圈內，步調悠閒。先參拜博多總鎮守櫛田神社，接著逛充滿懷舊風情的川端通商店街，最後進運河城看水舞、喝杯熱茶休息。',
+            veg: '🍵 商店街可品嚐紅豆湯與日式烤糰子（點餐前可用素食小卡確認醬料無柴魚成分）。',
+            maps: [
+              { name: '櫛田神社', q: 'Kushida Shrine Fukuoka' },
+              { name: '川端通商店街', q: 'Kawabata Shopping Arcade Fukuoka' },
+              { name: '博多運河城', q: 'Canal City Hakata' }
+            ]
+          },
+          {
+            time: '16:30 – 18:00',
+            title: '領行李 → SPAZIO 6 辦理入住小憩',
+            desc: '回博多車站領取行李，搭計程車約 5 分鐘抵達 SPAZIO 6 Hakata Station，辦理自助入住讓大家稍作休息。',
+            maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
+          },
+          {
+            time: '18:30 – 20:30',
+            title: '溫馨蔬食晚餐 → 博多車站聖誕市集',
+            desc: '晚餐後漫步博多車站前廣場，欣賞 12 月限定的璀璨聖誕燈飾與市集氣氛，拍張美美的家族合照後早點回房補眠。',
+            veg: '🥬 推薦：Tomoyasu Seisakusho（冷泉町義式餐酒館，有專屬純素菜單，環境舒適）或 Bugoro All Vegan（純素博多拉麵，座位僅 3 席、只收現金，建議事先預約）。',
+            maps: [
+              { name: 'Tomoyasu Seisakusho', q: 'Tomoyasu Seisakusho Cafe Hakata' },
+              { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
+              { name: '博多車站聖誕市集', q: 'Hakata Station Square Fukuoka' }
+            ]
+          }
+        ],
+        2: [
+          {
+            time: '08:30 – 11:30',
+            title: '太宰府天滿宮參拜＆表參道漫步',
+            desc: '從住宿搭計程車至博多車站，轉乘觀光巴士或西鐵前往太宰府。欣賞隈研吾設計的特色星巴克，感受古色古香的神社氛圍。',
+            veg: '🍡 必吃：參道現烤「梅枝餅」（紅豆內餡麻糬，素食可安心享用）。若預計下午參加柳川冬季暖桌船，建議早上先在博多站 Evah Dining 買好純素便當備用。',
+            maps: [{ name: '太宰府天滿宮', q: 'Dazaifu Tenmangu Fukuoka' }]
+          },
+          {
+            time: '12:00 – 14:30',
+            title: '太宰府質感蔬食午餐＆九州國立博物館',
+            desc: '在充滿綠意與文化氣息的環境中悠閒享用午餐，餐後可順遊九州國立博物館（室內空間舒適好走）。',
+            veg: '🥬 推薦：太宰府 Iinoji（九州國立博物館內，提供無五辛蔬食料理）或 梅之花太宰府別莊自然庵（天滿宮後方，精緻素食懷石料理，需事先預約）。',
+            maps: [
+              { name: '九州國立博物館 / Iinoji', q: 'Kyushu National Museum Fukuoka' },
+              { name: '梅之花 自然庵', q: 'Umenohana Dazaifu Shizenan' }
+            ]
+          },
+          {
+            time: '17:30 – 20:30',
+            title: '返回天神 / 博多晚餐與伴手禮採買',
+            desc: '回到市區享受美味的蔬食晚餐，並採買非液體類伴手禮，順便準備明天早上的早餐食材回公寓。',
+            veg: '🥬 推薦：Sonu Sonu（天神高評價全素餐廳，餐點與甜點皆精緻）或至天神岩田屋 B2F / 博多站 Evah Dining 挑選純素熟食與飯糰。',
+            maps: [
+              { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' },
+              { name: '天神岩田屋百貨', q: 'Iwataya Department Store Fukuoka' }
+            ]
+          }
+        ],
+        3: [
+          {
+            time: '07:30 – 08:15',
+            title: '公寓廚房悠閒早餐 → 整理退房',
+            desc: '運用 SPAZIO 6 房內廚房輕鬆加熱昨晚買好的純素飯糰、熱湯與水果，大家吃飽喝足再從容退房。',
+            veg: '🥬 若想現買早餐，博多站內 Evah Dining 早上 07:00 即開始營業。',
+            maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
+          },
+          {
+            time: '08:15 – 10:55',
+            title: '計程車直達福岡機場國際線 → 搭機返台',
+            desc: '從住宿搭計程車至國際線航廈僅約 10 分鐘！辦妥報到與安檢後，可在免稅店補齊伴手禮，10:55 搭乘 IT241 平安返台（12:40 抵達桃園 T1）。',
+            maps: [{ name: '福岡機場國際線', q: 'Fukuoka Airport International Terminal' }]
+          }
+        ]
+      },
+      rainy: {
+        1: [
+          {
+            time: '10:00 – 11:30',
+            title: '抵達福岡機場 → 計程車直達博多車站',
+            desc: '下雨天搭計程車門對門最乾爽！直接至博多車站寄放隨身行李，全程都在室內連線空間移動。',
+            maps: [{ name: '博多車站', q: 'Hakata Station Fukuoka' }]
+          },
+          {
+            time: '11:30 – 13:30',
+            title: '博多車站全室內蔬食午餐＆逛街',
+            desc: '不出站即可輕鬆用餐，飯後順逛博多阪急百貨與 Amu Plaza。',
+            veg: '🥬 推薦：Evah Dining（JR 博多站 Deitos 一品通內）或 Soup Stock Tokyo（Amu Plaza B1F，VEG 標示蔬食）。',
+            maps: [
+              { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
+              { name: 'Amu Plaza 博多', q: 'AMU PLAZA Hakata' }
+            ]
+          },
+          {
+            time: '13:30 – 16:30',
+            title: '川端通遮雨棚商店街 → 博多町家故鄉館 → 博多運河城',
+            desc: '川端通有完整遮雨棚不怕淋濕，接著參觀室內的博多町家故鄉館體驗傳統工藝，再進全室內的博多運河城看水舞、喝下午茶。',
+            veg: '🍵 運河城內咖啡廳林立，隨時可坐下來吹暖氣休息。',
+            maps: [
+              { name: '川端通商店街', q: 'Kawabata Shopping Arcade Fukuoka' },
+              { name: '博多町家故鄉館', q: 'Hakata Machiya Folk Museum' },
+              { name: '博多運河城', q: 'Canal City Hakata' }
+            ]
+          },
+          {
+            time: '16:30 – 18:00',
+            title: '領行李 → 計程車往 SPAZIO 6 入住休息',
+            desc: '搭計程車直達公寓門口，進房換下微濕衣物、泡杯熱茶暖暖身。',
+            maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
+          },
+          {
+            time: '18:30 – 20:30',
+            title: '天神地下街直達純素晚餐',
+            desc: '全程地下連通道不淋雨！享受溫熱的香料蔬菜咖哩或義式蔬食。',
+            veg: '🥬 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，天神地下街直達，提供純素無五辛蔬菜咖哩）或 Tomoyasu Seisakusho。',
+            maps: [
+              { name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' },
+              { name: '天神地下街', q: 'Tenjin Underground Shopping Center' }
+            ]
+          }
+        ],
+        2: [
+          {
+            time: '09:30 – 11:30',
+            title: '福岡亞洲美術館（博多河岸城全室內）',
+            desc: '下雨天最適合的質感藝文行程！館內寬敞安靜、設有舒適休息區與咖啡廳，長輩逛起來毫無負擔。',
+            maps: [{ name: '福岡亞洲美術館', q: 'Fukuoka Asian Art Museum' }]
+          },
+          {
+            time: '12:00 – 13:30',
+            title: '暖呼呼純素拉麵或蔬食咖啡廳午餐',
+            desc: '搭計程車幾分鐘即可抵達餐廳，下雨天喝碗熱湯最幸福。',
+            veg: '🥬 推薦：Bugoro All Vegan（週六全天營業，純素拉麵，建議預約）或 Sonu Sonu（天神全素餐廳，環境寬敞好坐）。',
+            maps: [
+              { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
+              { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' }
+            ]
+          },
+          {
+            time: '14:00 – 17:30',
+            title: '天神地下街＆百貨群 或 LaLaport 福岡（全室內）',
+            desc: '兩者皆為超好逛的全室內動線！想優雅買伴手禮可逛天神地下街與岩田屋百貨；想逛大型商場與看鋼彈可搭計程車去 LaLaport 福岡。',
+            veg: '🥬 岩田屋 B2F 有 Evah Dining 專櫃，方便順手買熟食與隔日早餐。',
+            maps: [
+              { name: '天神地下街', q: 'Tenjin Underground Shopping Center' },
+              { name: 'LaLaport 福岡', q: 'Mitsui Shopping Park LaLaport Fukuoka' }
+            ]
+          },
+          {
+            time: '18:00 – 20:00',
+            title: '室內溫馨晚餐 或 外帶熟食回公寓享用',
+            desc: '若外面雨勢較大，外帶熱騰騰的純素料理回 SPAZIO 6 搭配熱茶，一家人輕鬆聊天也很愜意。',
+            veg: '🥬 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，純素無五辛蔬菜咖哩）或 Evah Dining 純素熟食便當。',
+            maps: [{ name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' }]
+          }
+        ],
+        3: [
+          {
+            time: '07:30 – 08:15',
+            title: '公寓房內暖心早餐 → 退房',
+            desc: '下雨天免出門找早餐！直接在房內廚房加熱昨晚買好的純素飯糰與熱飲，輕鬆打包退房。',
+            maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
+          },
+          {
+            time: '08:15 – 10:55',
+            title: '計程車直達福岡機場國際線 → 搭機返台',
+            desc: '請計程車直接開到國際線航廈雨遮下方，乾爽入關！過安檢後在免稅店輕鬆採買，10:55 搭乘 IT241 返台。',
+            maps: [{ name: '福岡機場國際線', q: 'Fukuoka Airport International Terminal' }]
+          }
+        ]
+      }
+    };
+
+    const TAXI_CARDS = [
+      { zh: '我們的住宿 (SPAZIO 6)', jp: 'SPAZIO 6 Hakata Station\n（博多区比恵町）', note: '請司機導航 SPAZIO 6 Hakata Station' },
+      { zh: '博多車站（筑紫口）', jp: '博多駅 筑紫口', note: '新幹線側・離住宿最近' },
+      { zh: '福岡機場（國際線）', jp: '福岡空港 国際線ターミナル', note: '請務必確認是「國際線」' },
+      { zh: '櫛田神社', jp: '櫛田神社（くしだじんじゃ）', note: '博多區上川端町' },
+      { zh: '博多運河城', jp: 'キャナルシティ博多', note: '室內購物中心' },
+      { zh: '太宰府天滿宮', jp: '太宰府天満宮', note: '太宰府市宰府' },
+      { zh: '天神地下街 / Solaria', jp: '天神 ソラリアステージ', note: '天神核心地帶' },
+      { zh: '福岡亞洲美術館（雨天）', jp: '福岡アジア美術館\n（博多リバレイン）', note: '中洲川端站旁' },
+      { zh: 'LaLaport 福岡（雨天）', jp: 'ららぽーと福岡', note: '博多區那珂' }
+    ];
+
+    const DEFAULT_CHECKLIST = [
+      { text: '護照正本（確認效期 6 個月以上）', done: false },
+      { text: '機票電子檔 & SPAZIO 6 入住密碼截圖', done: false },
+      { text: '日幣現金（部分素食小店只收現金）與信用卡', done: false },
+      { text: '保暖外套、圍巾、毛帽與暖暖包（12月均溫 6–13°C）', done: false },
+      { text: '折疊傘（雨天備用）', done: false },
+      { text: '防滑好走的鞋子', done: false },
+      { text: '隨身行李秤重確認（每人限 10kg、液體 100ml 以下）', done: false },
+      { text: '手機網卡 / eSIM 與行動電源', done: false },
+      { text: '個人常備藥品與保溫瓶', done: false }
+    ];
+
+    // ---------- State ----------
+    let currentDay = 1;
+    let weatherMode = 'sunny';
+    let dailyWeatherMap = {};
+
+    // ---------- Tabs ----------
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-page').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------- Veg Card ----------
+    function loadVegSettings() {
+      const saved = JSON.parse(localStorage.getItem('fk_veg_opts') || '{"allium":true,"eggDairy":false,"alcohol":false}');
+      document.getElementById('optAllium').checked = !!saved.allium;
+      document.getElementById('optEggDairy').checked = !!saved.eggDairy;
+      document.getElementById('optAlcohol').checked = !!saved.alcohol;
+      updateVegCard();
+    }
+
+    function getVegMessage() {
+      const noAllium = document.getElementById('optAllium').checked;
+      const noEggDairy = document.getElementById('optEggDairy').checked;
+      const noAlcohol = document.getElementById('optAlcohol').checked;
+
+      localStorage.setItem('fk_veg_opts', JSON.stringify({
+        allium: noAllium,
+        eggDairy: noEggDairy,
+        alcohol: noAlcohol
+      }));
+
+      let excludes = ['お肉（牛・豚・鶏など）', '魚介類・シーフード', 'かつおだし・魚や肉のエキス'];
+      let tags = [
+        { text: '❌ 肉類', ok: false },
+        { text: '❌ 海鮮魚貝', ok: false },
+        { text: '❌ 柴魚/動物高湯', ok: false }
+      ];
+
+      if (noAllium) {
+        excludes.push('五葷（ネギ・ニンニク・玉ねぎ・ニラ・らっきょう）');
+        tags.push({ text: '❌ 五辛（蔥蒜洋蔥）', ok: false });
+      }
+      if (noEggDairy) {
+        excludes.push('卵・乳製品（牛乳・チーズ・バター）');
+        tags.push({ text: '❌ 蛋與奶製品', ok: false });
+      } else {
+        tags.push({ text: '⭕ 蛋奶可', ok: true });
+      }
+      if (noAlcohol) {
+        excludes.push('アルコール（料理酒・みりん）');
+        tags.push({ text: '❌ 酒精/料理酒', ok: false });
+      }
+
+      const jp = `以下の食材は食べられません：\n「${excludes.join('、')}」。\n\n昆布だし・しいたけだし・野菜だけの料理は食べられます。対応できるメニューはありますか？`;
+      const zh = `不可食用：肉類、海鮮、柴魚及動物高湯${noAllium ? '、五辛' : ''}${noEggDairy ? '、蛋奶' : ''}${noAlcohol ? '、酒精' : ''}。（昆布／香菇高湯與純蔬菜可食）`;
+      return { jp, zh, tags };
+    }
+
+    function updateVegCard() {
+      const { jp, tags } = getVegMessage();
+      document.getElementById('vegJpText').innerHTML = jp.replace(/\n/g, '<br>');
+      document.getElementById('vegTags').innerHTML = tags.map(t =>
+        `<span class="veg-tag ${t.ok ? 'ok' : ''}">${t.text}</span>`
+      ).join('');
+    }
+
+    function openVegModal() {
+      const { jp, zh } = getVegMessage();
+      openTextModal('私はベジタリアン（素食）です。', jp + '\n\n' + zh, true);
+    }
+
+    // ---------- Itinerary & Weather ----------
+    function setWeatherMode(mode) {
+      weatherMode = mode;
+      document.body.classList.toggle('rainy-theme', mode === 'rainy');
+      document.getElementById('btnSunny').className = 'mode-btn' + (mode === 'sunny' ? ' active-sunny' : '');
+      document.getElementById('btnRainy').className = 'mode-btn' + (mode === 'rainy' ? ' active-rainy' : '');
+      renderItinerary();
+    }
+
+    function selectDay(day) {
+      currentDay = day;
+      document.querySelectorAll('.day-tab').forEach(t => {
+        t.classList.toggle('active', Number(t.dataset.day) === day);
+      });
+      renderItinerary();
+    }
+
+    function renderItinerary() {
+      const dateStr = currentDay === 1 ? '2026-12-11' : currentDay === 2 ? '2026-12-12' : '2026-12-13';
+      const forecast = dailyWeatherMap[dateStr];
+      const box = document.getElementById('dayForecastBox');
+      const alertBox = document.getElementById('rainAlertBox');
+
+      if (forecast) {
+        const w = decodeWeatherCode(forecast.code);
+        box.innerHTML = `${w.icon} <strong>${dateStr} 福岡預報：</strong>${w.text}｜氣溫 <strong>${Math.round(forecast.min)}°C ~ ${Math.round(forecast.max)}°C</strong>｜降雨機率 <strong>${forecast.rain}%</strong>`;
+        if (forecast.rain >= 50 && weatherMode === 'sunny') {
+          alertBox.style.display = 'flex';
+        } else {
+          alertBox.style.display = 'none';
+        }
+      } else {
+        box.innerHTML = `📅 <strong>${dateStr} 氣溫參考：</strong>12 月中旬福岡均溫約 <strong>6°C ~ 13°C</strong>（出發前 16 天內連網將自動顯示當日精準預報）`;
+        alertBox.style.display = 'none';
+      }
+
+      const items = ITINERARY[weatherMode][currentDay] || [];
+      document.getElementById('itineraryList').innerHTML = items.map(item => `
+        <div class="timeline-item">
+          <div class="time-badge">🕒 ${item.time}</div>
+          <h3 class="spot-title">${item.title}</h3>
+          <p class="spot-desc">${item.desc}</p>
+          ${item.veg ? `<div class="veg-note">${item.veg}</div>` : ''}
+          <div class="map-links">
+            ${(item.maps || []).map(m => `
+              <a class="btn btn-soft btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.q)}">
+                📍 ${m.name}
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function decodeWeatherCode(code) {
+      if (code === 0) return { icon: '☀️', text: '晴朗' };
+      if (code <= 3) return { icon: '⛅', text: '多雲時晴' };
+      if (code <= 48) return { icon: '🌫️', text: '有霧' };
+      if (code <= 67) return { icon: '🌧️', text: '有雨' };
+      if (code <= 77) return { icon: '❄️', text: '降雪' };
+      if (code <= 82) return { icon: '🌦️', text: '陣雨' };
+      return { icon: '⛈️', text: '雷雨' };
+    }
+
+    async function fetchWeather(manual = false) {
+      if (!navigator.onLine) {
+        document.getElementById('liveDesc').textContent = '離線中（12月均溫 6–13°C）';
+        return;
+      }
+      if (manual) showToast('正在更新福岡即時天氣...');
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4017&current=temperature_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=16';
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        if (data.current) {
+          const cur = decodeWeatherCode(data.current.weather_code);
+          document.getElementById('liveIcon').textContent = cur.icon;
+          document.getElementById('liveTemp').textContent = Math.round(data.current.temperature_2m) + '°C';
+          document.getElementById('liveDesc').textContent = '福岡即時・' + cur.text;
+          document.getElementById('liveMeta').textContent = `體感 ${Math.round(data.current.apparent_temperature)}°C ・ Open-Meteo 即時資料`;
+        }
+
+        if (data.daily && data.daily.time) {
+          dailyWeatherMap = {};
+          data.daily.time.forEach((d, idx) => {
+            dailyWeatherMap[d] = {
+              code: data.daily.weather_code[idx],
+              max: data.daily.temperature_2m_max[idx],
+              min: data.daily.temperature_2m_min[idx],
+              rain: data.daily.precipitation_probability_max[idx] ?? 0
+            };
+          });
+          renderItinerary();
+        }
+        if (manual) showToast('福岡天氣已更新！');
+      } catch (e) {
+        document.getElementById('liveDesc').textContent = '暫時無法取得天氣';
+      }
+    }
+
+    // ---------- Taxi ----------
+    function renderTaxiCards() {
+      document.getElementById('taxiGrid').innerHTML = TAXI_CARDS.map(c => `
+        <button class="taxi-card" onclick="openTextModal(\`${c.jp}\`, 'ここまでお願いします。（請載我們到這裡）', false, '${c.zh}｜${c.note}')">
+          <div>
+            <div class="taxi-zh">${c.zh}</div>
+            <div class="taxi-jp">${c.jp.replace(/\n/g, ' ')}</div>
+          </div>
+          <div class="taxi-tag">👆 點擊放大給司機看</div>
+        </button>
+      `).join('');
+    }
+
+    // ---------- Currency ----------
+    function loadRate() {
+      const r = localStorage.getItem('fk_rate');
+      if (r) document.getElementById('rateInput').value = r;
+    }
+    function saveRateAndConvert() {
+      localStorage.setItem('fk_rate', document.getElementById('rateInput').value);
+      convertFromJpy();
+    }
+    function convertFromJpy() {
+      const jpy = parseFloat(document.getElementById('jpyInput').value);
+      const rate = parseFloat(document.getElementById('rateInput').value) || 0.215;
+      document.getElementById('twdInput').value = isNaN(jpy) ? '' : Math.round(jpy * rate);
+    }
+    function convertFromTwd() {
+      const twd = parseFloat(document.getElementById('twdInput').value);
+      const rate = parseFloat(document.getElementById('rateInput').value) || 0.215;
+      document.getElementById('jpyInput').value = isNaN(twd) ? '' : Math.round(twd / rate);
+    }
+
+    // ---------- Checklist ----------
+    let checklist = [];
+    function loadChecklist() {
+      const saved = localStorage.getItem('fk_checklist');
+      checklist = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+      renderChecklist();
+    }
+    function saveChecklist() {
+      localStorage.setItem('fk_checklist', JSON.stringify(checklist));
+    }
+    function renderChecklist() {
+      document.getElementById('checklistContainer').innerHTML = checklist.map((item, i) => `
+        <div class="check-item">
+          <label class="check-left ${item.done ? 'done' : ''}">
+            <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleCheck(${i})" />
+            <span>${item.text}</span>
+          </label>
+          <button class="del-btn" onclick="deleteCheck(${i})" title="刪除">✕</button>
+        </div>
+      `).join('');
+    }
+    function toggleCheck(i) {
+      checklist[i].done = !checklist[i].done;
+      saveChecklist();
+      renderChecklist();
+    }
+    function deleteCheck(i) {
+      checklist.splice(i, 1);
+      saveChecklist();
+      renderChecklist();
+    }
+    function addCheckItem() {
+      const input = document.getElementById('newCheckItem');
+      const val = input.value.trim();
+      if (!val) return;
+      checklist.push({ text: val, done: false });
+      input.value = '';
+      saveChecklist();
+      renderChecklist();
+    }
+
+    // ---------- Modal & Toast ----------
+    function openTextModal(jpBig, subText, isVeg = false, zhText = '') {
+      document.getElementById('modalJpBig').innerHTML = jpBig.replace(/\n/g, '<br>');
+      document.getElementById('modalSub').innerHTML = subText ? subText.replace(/\n/g, '<br>') : '';
+      document.getElementById('modalZh').textContent = zhText;
+      document.getElementById('modalJpBig').style.fontSize = isVeg ? '1.65rem' : '2.1rem';
+      document.getElementById('fullModal').classList.add('open');
+    }
+    function closeModal() {
+      document.getElementById('fullModal').classList.remove('open');
+    }
+
+    function copyText(text, msg) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => showToast(msg));
+      } else {
+        showToast(msg + ': ' + text);
+      }
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    // ---------- Offline Banner & SW ----------
+    function updateOnlineStatus() {
+      const banner = document.getElementById('offlineBanner');
+      if (navigator.onLine) {
+        banner.classList.remove('show');
+        fetchWeather(false);
+      } else {
+        banner.classList.add('show');
+      }
+    }
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+
+    // ---------- Init ----------
+    loadVegSettings();
+    renderTaxiCards();
+    loadRate();
+    loadChecklist();
+    renderItinerary();
+    updateOnlineStatus();
+  </script>
+</body>
+</html>

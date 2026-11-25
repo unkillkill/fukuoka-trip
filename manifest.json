@@ -1,0 +1,19 @@
+{
+  "name": "福岡 3 天 2 夜家族旅遊隨身手冊",
+  "short_name": "福岡家族遊",
+  "description": "福岡家族旅遊專屬隨身手冊：素食溝通小卡、晴雨天行程、即時天氣、計程車大字卡與航班住宿資訊",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#15803d",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

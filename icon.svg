@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#15803d"/>
+  <circle cx="256" cy="256" r="188" fill="#166534" opacity="0.45"/>
+  <!-- Cute stylized leaf + torii / travel badge -->
+  <path d="M136 188 h240 v26 h-240 z" fill="#fefce8" rx="8"/>
+  <path d="M156 232 h200 v20 h-200 z" fill="#fefce8"/>
+  <rect x="184" y="206" width="24" height="148" rx="8" fill="#fefce8"/>
+  <rect x="304" y="206" width="24" height="148" rx="8" fill="#fefce8"/>
+  <path d="M256 112 c36 0 64 24 64 56 c-36 0 -64 -24 -64 -56 z" fill="#86efac"/>
+  <path d="M256 112 c-36 0 -64 24 -64 56 c36 0 64 -24 64 -56 z" fill="#4ade80"/>
+  <text x="256" y="420" text-anchor="middle" font-family="sans-serif" font-size="48" font-weight="700" fill="#ffffff" letter-spacing="4">福岡</text>
+</svg>
