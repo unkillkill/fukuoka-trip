@@ -609,7 +609,9 @@
     .sheet-panel {
       width: 100%;
       max-width: 680px;
-      max-height: 86vh;
+      height: 92vh;
+      height: calc(100dvh - env(safe-area-inset-top) - 14px);
+      max-height: calc(100dvh - env(safe-area-inset-top) - 14px);
       background: #faf6f0;
       border-radius: 22px 22px 0 0;
       display: flex;
@@ -641,6 +643,7 @@
       cursor: pointer;
     }
     .sheet-body {
+      flex: 1;
       padding: 14px 14px calc(22px + env(safe-area-inset-bottom));
       overflow-y: auto;
     }
