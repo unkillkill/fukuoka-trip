@@ -1,42 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f59e0b"/>
-      <stop offset="52%" stop-color="#ea580c"/>
-      <stop offset="100%" stop-color="#b91c1c"/>
+    <linearGradient id="bgWashi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcfaf7"/>
+      <stop offset="100%" stop-color="#f2ede7"/>
     </linearGradient>
-    <linearGradient id="sun" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fef3c7"/>
-      <stop offset="100%" stop-color="#fde68a"/>
+    <linearGradient id="akaneSun" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d46b68"/>
+      <stop offset="100%" stop-color="#b94e4c"/>
     </linearGradient>
   </defs>
-  <!-- Background -->
-  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
-  <!-- Warm Sun -->
-  <circle cx="256" cy="218" r="118" fill="url(#sun)" opacity="0.95"/>
-  <!-- Soft decorative clouds -->
-  <g fill="#fff7ed" opacity="0.32">
-    <rect x="76" y="138" width="110" height="22" rx="11"/>
-    <rect x="336" y="168" width="102" height="20" rx="10"/>
+  <!-- Soft Washi Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgWashi)"/>
+  <!-- Subtle inner border -->
+  <rect x="14" y="14" width="484" height="484" rx="100" fill="none" stroke="#e5ded6" stroke-width="6"/>
+  <!-- Soft Akane Red Sun -->
+  <circle cx="256" cy="218" r="122" fill="url(#akaneSun)" opacity="0.94"/>
+  <!-- Soft Washi Clouds -->
+  <g fill="#fcfaf7" opacity="0.88">
+    <rect x="78" y="144" width="106" height="20" rx="10"/>
+    <rect x="334" y="172" width="98" height="18" rx="9"/>
   </g>
-  <!-- Classic Japanese Torii Silhouette in deep warm cream/wood -->
-  <g fill="#7c2d12">
-    <!-- Top curved beam (Kasagi) -->
-    <path d="M108 192 Q256 218 404 192 L396 220 Q256 242 116 220 Z"/>
-    <!-- Second horizontal beam (Nuki) -->
-    <rect x="136" y="250" width="240" height="22" rx="8"/>
-    <!-- Center strut (Gakuzuka) -->
-    <rect x="244" y="218" width="24" height="36" rx="4"/>
-    <!-- Left & Right Pillars -->
-    <rect x="174" y="216" width="28" height="176" rx="10"/>
-    <rect x="310" y="216" width="28" height="176" rx="10"/>
-    <!-- Pillar bases -->
-    <rect x="166" y="374" width="44" height="22" rx="6"/>
-    <rect x="302" y="374" width="44" height="22" rx="6"/>
+  <!-- Soft Sumi Charcoal Torii Gate -->
+  <g fill="#3a3635">
+    <path d="M110 198 Q256 222 402 198 L394 224 Q256 244 118 224 Z"/>
+    <rect x="138" y="254" width="236" height="20" rx="7"/>
+    <rect x="245" y="222" width="22" height="36" rx="4"/>
+    <rect x="176" y="220" width="26" height="174" rx="9"/>
+    <rect x="310" y="220" width="26" height="174" rx="9"/>
+    <rect x="168" y="376" width="42" height="20" rx="6"/>
+    <rect x="302" y="376" width="42" height="20" rx="6"/>
   </g>
-  <!-- Cute little paper airplane in top-right -->
-  <path d="M356 106 L418 90 L388 144 L376 122 Z" fill="#fffbeb"/>
-  <path d="M356 106 L376 122 L388 144" fill="none" stroke="#ea580c" stroke-width="3"/>
-  <!-- Warm bottom hills / horizon -->
-  <path d="M0 396 Q140 364 256 388 T512 384 L512 512 L0 512 Z" fill="#431407" opacity="0.28"/>
+  <!-- Paper Airplane in Soft Charcoal -->
+  <path d="M358 108 L416 92 L388 144 L376 122 Z" fill="#4a4543"/>
+  <!-- Subtle Warm Mist Horizon -->
+  <path d="M0 398 Q140 370 256 392 T512 388 L512 512 L0 512 Z" fill="#3a3635" opacity="0.10"/>
 </svg>
