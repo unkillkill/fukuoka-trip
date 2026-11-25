@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>福岡 3 天 2 夜家族旅遊隨身手冊</title>
-  <meta name="theme-color" content="#18181b" />
+  <meta name="theme-color" content="#383534" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="福岡家族遊" />
@@ -14,34 +14,34 @@
   <link rel="apple-touch-icon" href="./icon-512.png" />
   <style>
     :root {
-      --primary: #c81e2b;
-      --primary-dark: #991b1b;
-      --primary-grad: linear-gradient(135deg, #dc2626 0%, #c81e2b 58%, #991b1b 100%);
-      --header-bg: linear-gradient(135deg, #1f1f23 0%, #141417 100%);
-      --primary-soft: #fee2e2;
-      --accent: #c81e2b;
-      --bg: #f6f6f7;
+      --primary: #bf5250;
+      --primary-dark: #9a3e3c;
+      --primary-grad: linear-gradient(135deg, #cb6461 0%, #bf5250 58%, #ab4543 100%);
+      --header-bg: linear-gradient(135deg, #423e3d 0%, #33302f 100%);
+      --primary-soft: #f9eae9;
+      --accent: #bf5250;
+      --bg: #f8f6f4;
       --card: #ffffff;
-      --card-warm: #ffffff;
-      --text: #18181b;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --warn-bg: #fef2f2;
-      --warn-border: #ef4444;
-      --warn-text: #991b1b;
+      --card-warm: #fdfbfa;
+      --text: #353230;
+      --muted: #7a7470;
+      --border: #e9e4df;
+      --warn-bg: #fdf2f2;
+      --warn-border: #e29593;
+      --warn-text: #9a3e3c;
       --radius: 16px;
-      --shadow: 0 4px 16px rgba(24, 24, 27, 0.06);
+      --shadow: 0 3px 14px rgba(53, 50, 48, 0.055);
     }
 
     body.rainy-theme {
-      --primary: #334155;
-      --primary-dark: #1e293b;
-      --primary-grad: linear-gradient(135deg, #475569 0%, #334155 60%, #1e293b 100%);
-      --header-bg: linear-gradient(135deg, #273240 0%, #18202b 100%);
-      --primary-soft: #e2e8f0;
-      --bg: #f1f5f9;
-      --border: #dbe3ec;
-      --shadow: 0 4px 16px rgba(30, 41, 59, 0.07);
+      --primary: #52687a;
+      --primary-dark: #3d5060;
+      --primary-grad: linear-gradient(135deg, #647c8f 0%, #52687a 60%, #435666 100%);
+      --header-bg: linear-gradient(135deg, #465562 0%, #37444f 100%);
+      --primary-soft: #e8eef3;
+      --bg: #f3f5f7;
+      --border: #dfe5eb;
+      --shadow: 0 3px 14px rgba(55, 68, 79, 0.06);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -63,7 +63,7 @@
       color: #fff;
       padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
       border-bottom: 3px solid var(--primary);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 3px 12px rgba(51, 48, 47, 0.12);
       transition: background 0.3s ease, border-color 0.3s ease;
     }
     .header-row {
@@ -124,7 +124,7 @@
 
     .offline-banner {
       display: none;
-      background: #18181b;
+      background: #3d3938;
       color: #ffffff;
       font-size: 0.82rem;
       text-align: center;
@@ -179,7 +179,7 @@
       transition: transform 0.1s ease, opacity 0.15s ease;
     }
     .btn:active { transform: scale(0.97); }
-    .btn-primary { background: var(--primary-grad); color: #fff; box-shadow: 0 3px 10px rgba(200, 30, 43, 0.24); }
+    .btn-primary { background: var(--primary-grad); color: #fff; box-shadow: 0 3px 10px rgba(191, 82, 80, 0.2); }
     body.rainy-theme .btn-primary { box-shadow: 0 3px 10px rgba(59, 89, 120, 0.22); }
     .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
     .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
@@ -189,7 +189,7 @@
     /* Veg Card - Warm Washi & Wooden Frame Style */
     .veg-jp-box {
       background: var(--card-warm);
-      border: 2px solid #18181b;
+      border: 1.5px solid #d9c5c3;
       border-radius: 15px;
       padding: 16px;
       margin-bottom: 13px;
@@ -197,13 +197,13 @@
     .veg-jp-heading {
       font-size: 1.2rem;
       font-weight: 800;
-      color: #c81e2b;
+      color: #b24846;
       margin-bottom: 8px;
       line-height: 1.4;
     }
     .veg-jp-body {
       font-size: 1.02rem;
-      color: #18181b;
+      color: #353230;
       line-height: 1.68;
       margin-bottom: 10px;
     }
@@ -214,18 +214,18 @@
       margin-top: 8px;
     }
     .veg-tag {
-      background: #fff1f2;
-      color: #9f1239;
-      border: 1px solid #fecdd3;
+      background: #fdf2f2;
+      color: #9a3e3c;
+      border: 1px solid #f0d0cf;
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.82rem;
       font-weight: 700;
     }
     .veg-tag.ok {
-      background: #fee2e2;
-      color: #991b1b;
-      border-color: #fde68a;
+      background: #f4f1ed;
+      color: #5c5550;
+      border-color: #e2dcd5;
     }
 
     /* Toggle rows */
@@ -269,7 +269,7 @@
       transition: 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .switch input:checked + .slider { background: #c81e2b; }
+    .switch input:checked + .slider { background: #bf5250; }
     .switch input:checked + .slider:before { transform: translateX(20px); }
 
     /* Phrases */
@@ -292,7 +292,7 @@
 
     /* Weather Banner - Cozy Travel Sky */
     .weather-banner {
-      background: linear-gradient(135deg, #27272a 0%, #18181b 100%);
+      background: linear-gradient(135deg, #4a4645 0%, #3a3635 100%);
       color: #fff;
       border-radius: var(--radius);
       padding: 15px 16px;
@@ -322,7 +322,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: #e4e4e7;
+      background: #ece8e4;
       padding: 5px;
       border-radius: 14px;
       margin-bottom: 12px;
@@ -341,7 +341,7 @@
     }
     .mode-btn.active-sunny {
       background: #ffffff;
-      color: #c81e2b;
+      color: #b24846;
       box-shadow: 0 2px 6px rgba(24, 24, 27, 0.1);
     }
     .mode-btn.active-rainy {
@@ -382,9 +382,9 @@
     /* Daily Weather Forecast Strip */
     .day-forecast {
       background: #ffffff;
-      border: 1px solid #e4e4e7;
-      border-left: 4px solid #c81e2b;
-      color: #18181b;
+      border: 1px solid #e9e4df;
+      border-left: 4px solid #bf5250;
+      color: #353230;
       border-radius: 13px;
       padding: 10px 13px;
       font-size: 0.85rem;
@@ -435,7 +435,7 @@
     .spot-desc { font-size: 0.89rem; color: #3f3f46; line-height: 1.58; margin: 0 0 9px; }
     .veg-note {
       background: #fafafa;
-      border: 1px solid #e4e4e7;
+      border: 1px solid #e9e4df;
       color: #27272a;
       border-radius: 11px;
       padding: 9px 11px;
@@ -555,7 +555,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: #111113;
+      background: #242120;
       color: #fff;
       padding: calc(20px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
       flex-direction: column;
@@ -591,7 +591,7 @@
       border-radius: 14px;
       border: none;
       background: #ffffff;
-      color: #18181b;
+      color: #353230;
       font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
@@ -616,7 +616,7 @@
       height: 92vh;
       height: calc(100dvh - env(safe-area-inset-top) - 14px);
       max-height: calc(100dvh - env(safe-area-inset-top) - 14px);
-      background: #f6f6f7;
+      background: #f8f6f4;
       border-radius: 22px 22px 0 0;
       display: flex;
       flex-direction: column;
@@ -626,7 +626,7 @@
     }
     @keyframes slideUp { from { transform: translateY(40px); opacity: 0.6; } to { transform: translateY(0); opacity: 1; } }
     .sheet-header {
-      background: linear-gradient(135deg, #27272a 0%, #141417 100%);
+      background: linear-gradient(135deg, #464241 0%, #353231 100%);
       color: #fffbf5;
       padding: 15px 16px;
       display: flex;
@@ -668,14 +668,14 @@
       cursor: pointer;
     }
     .meat-day-btn.active {
-      background: #18181b;
+      background: #3d3938;
       color: #ffffff;
-      border-color: #18181b;
+      border-color: #353230;
     }
     .meat-card {
       background: #fff;
       border: 1px solid var(--border);
-      border-left: 4px solid #c81e2b;
+      border-left: 4px solid #bf5250;
       border-radius: 14px;
       padding: 13px 14px;
       margin-bottom: 11px;
@@ -683,8 +683,8 @@
     }
     .meat-slot {
       display: inline-block;
-      background: #fee2e2;
-      color: #991b1b;
+      background: #f9eae9;
+      color: #9a3e3c;
       font-size: 0.76rem;
       font-weight: 800;
       padding: 3px 9px;
@@ -693,7 +693,7 @@
     }
     .meat-same-table {
       display: inline-block;
-      background: #18181b;
+      background: #3d3938;
       color: #ffffff;
       font-size: 0.74rem;
       font-weight: 800;
@@ -716,7 +716,7 @@
       bottom: 94px;
       left: 50%;
       transform: translateX(-50%);
-      background: #2c2420;
+      background: #3a3635;
       color: #fffbf5;
       padding: 10px 18px;
       border-radius: 999px;
@@ -858,6 +858,86 @@
       .h-svg, .bg-svg, .steam-path { animation: none !important; }
     }
 
+  
+    /* Install PWA Banner & Modal */
+    .install-bar {
+      max-width: 680px;
+      margin: 12px auto 0;
+      padding: 0 14px;
+    }
+    .install-bar-inner {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      padding: 10px 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+    .install-bar-text {
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .install-bar-text strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--primary-dark);
+    }
+    .install-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .install-dismiss {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      padding: 4px 6px;
+      cursor: pointer;
+    }
+    .guide-modal-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      color: var(--text);
+      border-radius: 20px;
+      padding: 20px;
+      margin: auto;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+    .guide-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #f8f6f4;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 9px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .guide-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
   </style>
 </head>
 <body>
@@ -962,6 +1042,20 @@
 
   <div id="offlineBanner" class="offline-banner">
     📡 目前為離線模式，行程與素食小卡皆可正常使用
+  </div>
+
+  <!-- Install App Quick Bar (auto-hides when already installed as PWA) -->
+  <div id="installBar" class="install-bar">
+    <div class="install-bar-inner">
+      <div class="install-bar-text">
+        <strong>📲 安裝成手機隨身 App</strong>
+        加入桌面即可全螢幕＆離線使用
+      </div>
+      <div class="install-bar-actions">
+        <button class="btn btn-primary btn-sm" onclick="triggerInstallApp()">安裝 APP</button>
+        <button class="install-dismiss" onclick="dismissInstallBar()" title="暫時隱藏">✕</button>
+      </div>
+    </div>
   </div>
 
   <main class="container">
@@ -1185,6 +1279,15 @@
           <button class="btn btn-primary btn-sm" onclick="addCheckItem()">新增</button>
         </div>
       </div>
+      <div class="card" id="installToolsCard">
+        <div class="card-title">📲 安裝成手機桌面 APP</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin:0 0 12px;line-height:1.5;">
+          將這份手冊安裝到手機主畫面，出國時無須開瀏覽器，沒有網路也能隨時查看行程、素食小卡與計程車大字卡。
+        </p>
+        <button id="toolsInstallBtn" class="btn btn-primary btn-full" onclick="triggerInstallApp()">
+          📲 立即安裝到手機桌面
+        </button>
+      </div>
     </section>
 
   </main>
@@ -1233,6 +1336,16 @@
         </div>
         <div id="meatList"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- Install Guide Modal (iOS Safari / Manual fallback) -->
+  <div id="installGuideModal" class="sheet-backdrop" style="align-items:center;padding:16px;" onclick="closeInstallGuide()">
+    <div class="guide-modal-card" onclick="event.stopPropagation()">
+      <h3 style="margin:0 0 6px;font-size:1.08rem;color:var(--text);">📲 如何安裝成手機 APP</h3>
+      <p id="installGuideIntro" style="margin:0 0 14px;font-size:0.84rem;color:var(--muted);line-height:1.5;"></p>
+      <div id="installGuideSteps"></div>
+      <button class="btn btn-primary btn-full" style="margin-top:8px;" onclick="closeInstallGuide()">我知道了</button>
     </div>
   </div>
 
@@ -1659,7 +1772,7 @@
       document.getElementById('btnSunny').className = 'mode-btn' + (mode === 'sunny' ? ' active-sunny' : '');
       document.getElementById('btnRainy').className = 'mode-btn' + (mode === 'rainy' ? ' active-rainy' : '');
       const metaTheme = document.querySelector('meta[name="theme-color"]');
-      if (metaTheme) metaTheme.setAttribute('content', mode === 'rainy' ? '#1e293b' : '#18181b');
+      if (metaTheme) metaTheme.setAttribute('content', mode === 'rainy' ? '#37444f' : '#383534');
       renderItinerary();
     }
 
@@ -1878,6 +1991,94 @@
       });
     }
 
+    // ---------- PWA Install App ----------
+    let deferredInstallPrompt = null;
+
+    function isStandaloneMode() {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    function updateInstallUI() {
+      const bar = document.getElementById('installBar');
+      const toolsBtn = document.getElementById('toolsInstallBtn');
+      if (isStandaloneMode()) {
+        if (bar) bar.style.display = 'none';
+        if (toolsBtn) {
+          toolsBtn.textContent = '✅ 已安裝為桌面 APP 使用中';
+          toolsBtn.disabled = true;
+          toolsBtn.style.opacity = '0.65';
+        }
+      } else if (sessionStorage.getItem('fk_install_dismissed') === '1') {
+        if (bar) bar.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (!isStandaloneMode() && sessionStorage.getItem('fk_install_dismissed') !== '1') {
+        const bar = document.getElementById('installBar');
+        if (bar) bar.style.display = 'block';
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      showToast('🎉 已成功安裝「福岡家族遊」APP！');
+      updateInstallUI();
+    });
+
+    function dismissInstallBar() {
+      sessionStorage.setItem('fk_install_dismissed', '1');
+      const bar = document.getElementById('installBar');
+      if (bar) bar.style.display = 'none';
+    }
+
+    async function triggerInstallApp() {
+      if (isStandaloneMode()) {
+        showToast('目前已經是桌面 APP 模式囉！');
+        return;
+      }
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        if (choice.outcome === 'accepted') {
+          showToast('正在安裝到手機桌面...');
+        }
+        deferredInstallPrompt = null;
+        return;
+      }
+      openInstallGuide();
+    }
+
+    function openInstallGuide() {
+      const ua = navigator.userAgent || '';
+      const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+      const intro = document.getElementById('installGuideIntro');
+      const steps = document.getElementById('installGuideSteps');
+
+      if (isIOS) {
+        intro.textContent = 'iPhone 請使用 Safari 瀏覽器開啟此網頁，照以下 3 步驟就能加到桌面：';
+        steps.innerHTML = `
+          <div class="guide-step"><span class="guide-num">1</span><div>點擊 Safari 畫面最下方中間的 <strong>「分享」</strong> 圖示（方框＋向上箭頭）。</div></div>
+          <div class="guide-step"><span class="guide-num">2</span><div>往下滑找到並點選 <strong>「加入主畫面」</strong>。</div></div>
+          <div class="guide-step"><span class="guide-num">3</span><div>點擊右上角 <strong>「新增」</strong>，桌面就會出現「福岡家族遊」圖示！</div></div>
+        `;
+      } else {
+        intro.textContent = '若瀏覽器未自動跳出安裝視窗，可手動點選選單完成安裝：';
+        steps.innerHTML = `
+          <div class="guide-step"><span class="guide-num">1</span><div>點擊瀏覽器右上角的 <strong>「⋮」選單</strong>（Android Chrome）或網址列右側的 <strong>安裝圖示</strong>（電腦版）。</div></div>
+          <div class="guide-step"><span class="guide-num">2</span><div>選擇 <strong>「安裝應用程式」</strong> 或 <strong>「加到主畫面」</strong>。</div></div>
+          <div class="guide-step"><span class="guide-num">3</span><div>按下 <strong>「安裝」</strong>，之後就能像原生 App 一樣全螢幕離線開啟！</div></div>
+        `;
+      }
+      document.getElementById('installGuideModal').classList.add('open');
+    }
+
+    function closeInstallGuide() {
+      document.getElementById('installGuideModal').classList.remove('open');
+    }
+
     // ---------- Init ----------
     loadVegSettings();
     renderTaxiCards();
@@ -1885,6 +2086,7 @@
     loadChecklist();
     renderItinerary();
     updateOnlineStatus();
+    updateInstallUI();
   </script>
 </body>
 </html>
