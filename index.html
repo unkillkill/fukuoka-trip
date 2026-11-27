@@ -1032,6 +1032,97 @@
       border: 1px solid #e2dcd5;
     }
 
+  
+    /* Real Photo Hero & Lightbox */
+    .spot-hero {
+      height: 176px;
+    }
+    .photo-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      background: #e9e4df;
+      z-index: 1;
+    }
+    .photo-grid.two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+    .photo-cell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: #e9e4df;
+    }
+    .photo-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .photo-cell:active img {
+      transform: scale(1.03);
+    }
+    .photo-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(24,22,21,0.34) 0%, rgba(24,22,21,0) 42%, rgba(24,22,21,0.48) 100%);
+      pointer-events: none;
+    }
+    .photo-caption {
+      position: absolute;
+      bottom: 7px;
+      left: 8px;
+      background: rgba(36, 33, 32, 0.72);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      pointer-events: none;
+      max-width: calc(100% - 16px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .spot-hero-top {
+      z-index: 3;
+    }
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 140;
+      background: rgba(20, 18, 17, 0.94);
+      backdrop-filter: blur(6px);
+      padding: calc(20px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .lightbox-overlay.open {
+      display: flex;
+    }
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 74vh;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      object-fit: contain;
+    }
+    .lightbox-cap {
+      color: #f8f6f4;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -1443,6 +1534,13 @@
     </div>
   </div>
 
+  <!-- Real Photo Lightbox -->
+  <div id="photoLightbox" class="lightbox-overlay" onclick="closeLightbox()">
+    <img id="lightboxImg" class="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+    <div id="lightboxCap" class="lightbox-cap"></div>
+    <button class="btn btn-outline btn-sm" style="background:#ffffff;color:#353230;padding:8px 22px;" onclick="closeLightbox()">關閉照片</button>
+  </div>
+
   <div id="toast" class="toast"></div>
 
   <script>
@@ -1832,6 +1930,7 @@
             art: 'airport',
             tag: '✈️ 抵達福岡',
             title: '抵達福岡機場 → 博多車站寄放行李',
+            photos: [{ title: '福岡空港', label: '福岡機場' }],
             chips: ['🧳 無託運快速通關', '🚕 計程車約 15 分'],
             points: [
               '出關後直接搭計程車前往博多車站，輕鬆免轉車。',
@@ -1845,6 +1944,7 @@
             art: 'hakata_lunch',
             tag: '🍱 車站蔬食午餐',
             title: '博多車站暖心蔬食午餐',
+            photos: [{ title: 'JR博多シティ', label: 'JR 博多城' }],
             chips: ['🏠 全室內免吹風', '🥬 素食選擇多'],
             points: [
               '剛下飛機先在車站內用餐補體力，不用吹冷風找路。'
@@ -1861,6 +1961,7 @@
             art: 'kushida_fullfull',
             tag: '🥖 必吃明太子法棍',
             title: '櫛田神社 → 川端通 → Full Full 麵包 → 運河城',
+            photos: [{ title: '櫛田神社_(福岡市)', label: '櫛田神社' }, { title: 'キャナルシティ博多', label: '博多運河城' }],
             chips: ['🚶 步行 5–10 分圈', '🥖 週五開到 19:00', '⛲ 運河城水舞'],
             points: [
               '參拜博多總鎮守櫛田神社，順逛懷舊川端通商店街。',
@@ -1881,6 +1982,7 @@
             art: 'spazio_hotel',
             tag: '🏠 入住小憩',
             title: '領行李 → SPAZIO 6 辦理入住小憩',
+            photos: [{ title: '博多駅', label: '博多車站周邊' }],
             chips: ['🚕 車程約 5 分', '🔑 自助密碼入住'],
             points: [
               '回博多車站領取行李，搭計程車 5 分鐘抵達住宿。',
@@ -1894,6 +1996,7 @@
             art: 'christmas_market',
             tag: '🎄 聖誕市集',
             title: '溫馨蔬食晚餐 → 博多車站聖誕市集',
+            photos: [{ title: '中洲', label: '博多・中洲夜景' }, { title: '博多駅', label: '博多車站前' }],
             chips: ['✨ 12 月限定點燈', '🍙 順手買明日早餐'],
             points: [
               '餐後漫步博多車站前廣場，感受璀璨聖誕燈飾拍全家福。',
@@ -1914,6 +2017,7 @@
             art: 'yufuin_morning',
             tag: '🚌 Klook A 路線',
             title: 'SPAZIO 6 出發 → 博多車站集合出發',
+            photos: [{ title: 'ゆふいんの森', label: '由布院之森列車' }],
             chips: ['⏰ 07:40 準時集合', '🚕 07:15 搭車出門', '✅ 24h 前免費取消'],
             points: [
               '07:15 從住宿搭計程車赴博多車站集合點（車程約 5–10 分）。',
@@ -1928,6 +2032,7 @@
             art: 'yufuin_lake',
             tag: '🚂 由布院之森',
             title: '由布院漫步（湯之坪＆金鱗湖）＋觀光列車體驗',
+            photos: [{ title: '金鱗湖', label: '金鱗湖實景' }, { title: '由布院温泉', label: '由布院溫泉街' }],
             chips: ['🧥 比市區冷 3–5°C', '🛍️ 平路好逛', '📸 夢幻湖景'],
             points: [
               '漫步平緩的湯之坪街道，逛吉卜力選物店與手作雜貨。',
@@ -1946,6 +2051,7 @@
             art: 'beppu_dazaifu',
             tag: '♨️ 海地獄・太宰府',
             title: '別府海地獄 → 如意輪寺（青蛙寺）→ 太宰府',
+            photos: [{ title: '海地獄', label: '別府海地獄' }, { title: '太宰府天満宮', label: '太宰府天滿宮' }],
             chips: ['🎫 含海地獄門票', '🐸 療癒青蛙寺', '🍡 必吃梅枝餅'],
             points: [
               '欣賞湛藍冒煙的別府「海地獄溫泉」，再訪可愛的青蛙寺。',
@@ -1964,6 +2070,7 @@
             art: 'tenjin_dinner',
             tag: '🛍️ 晚餐＆採買',
             title: '返回博多車站 → 天神 / 博多晚餐＆伴手禮',
+            photos: [{ title: '天神_(福岡市)', label: '福岡天神商圈' }, { title: '天神地下街', label: '天神地下街' }],
             chips: ['🍽️ 彈性用餐', '🎁 非液體伴手禮'],
             points: [
               '約 18:00 返回博多（週六可能微塞車，不綁死餐廳最輕鬆）。',
@@ -1984,6 +2091,7 @@
             art: 'spazio_hotel',
             tag: '☕ 公寓早餐',
             title: '公寓廚房悠閒早餐 → 整理退房',
+            photos: [{ title: '博多駅', label: '博多早晨' }],
             chips: ['🍳 房內輕鬆加熱', '🧳 確認手提 10kg'],
             points: [
               '運用 SPAZIO 6 廚房加熱昨晚買好的純素飯糰、熱湯與水果。',
@@ -1998,6 +2106,7 @@
             art: 'breakfast_flight',
             tag: '🛫 平安返台',
             title: '計程車直達福岡機場國際線 → 搭機返台',
+            photos: [{ title: '福岡空港', label: '福岡機場國際線' }],
             chips: ['🚕 車程僅 10 分', '🛍️ 免稅店補伴手禮', '✈️ IT241 10:55'],
             points: [
               '搭計程車 10 分鐘直達國際線航廈，辦妥報到與安檢。',
@@ -2015,6 +2124,7 @@
             art: 'airport',
             tag: '🚕 門對門不淋雨',
             title: '抵達福岡機場 → 計程車直達博多車站',
+            photos: [{ title: '福岡空港', label: '福岡機場' }],
             chips: ['☔ 全程室內動線', '🚕 門對門最乾爽'],
             points: [
               '下雨天搭計程車直達博多車站，寄放隨身行李全程不淋雨。'
@@ -2027,6 +2137,7 @@
             art: 'hakata_lunch',
             tag: '🍱 車站全室內',
             title: '博多車站全室內蔬食午餐＆逛街',
+            photos: [{ title: 'JR博多シティ', label: 'JR 博多城' }],
             chips: ['🏬 博多阪急＆Amu', '🥬 蔬食免出站'],
             points: [
               '不出站就能輕鬆用餐，飯後順逛博多阪急與 Amu Plaza。'
@@ -2043,6 +2154,7 @@
             art: 'rainy_arcade',
             tag: '☂️ 遮雨棚＆運河城',
             title: '川端通遮雨棚 → Full Full 外帶 → 博多運河城',
+            photos: [{ title: '川端通商店街', label: '川端通遮雨棚' }, { title: 'キャナルシティ博多', label: '博多運河城' }],
             chips: ['☂️ 完整遮雨棚', '🥖 快速外帶法棍', '☕ 吹暖氣午茶'],
             points: [
               '川端通有遮雨棚不怕淋濕，順路到旁邊「The Full Full Hakata」外帶預訂麵包。',
@@ -2061,6 +2173,7 @@
             art: 'spazio_hotel',
             tag: '🏠 回房暖身',
             title: '領行李 → 計程車往 SPAZIO 6 入住休息',
+            photos: [{ title: '博多駅', label: '博多車站周邊' }],
             chips: ['🚕 直達公寓門口', '🍵 換裝泡熱茶'],
             points: [
               '搭計程車直達門口，進房換下微濕衣物、泡杯熱茶暖暖身。'
@@ -2073,6 +2186,7 @@
             art: 'tenjin_dinner',
             tag: '🚇 地下街直達',
             title: '天神地下街直達純素晚餐',
+            photos: [{ title: '天神地下街', label: '天神地下街' }, { title: 'ソラリアステージ', label: 'Solaria Stage' }],
             chips: ['☔ 全程地下連通道', '🍛 暖身蔬菜咖哩'],
             points: [
               '全程地下街不淋雨，享用溫熱香料蔬菜咖哩或義式蔬食。',
@@ -2092,6 +2206,7 @@
             art: 'art_museum',
             tag: '🖼️ 質感全室內',
             title: '福岡亞洲美術館（雨天取消跟團備案）',
+            photos: [{ title: '福岡アジア美術館', label: '福岡亞洲美術館' }],
             chips: ['☂️ 寬敞安靜', '👵 長輩無負擔'],
             points: [
               '若 12/12 大雨取消由布院一日遊，改走質感全室內藝文動線。',
@@ -2105,6 +2220,7 @@
             art: 'vegan_ramen',
             tag: '🍜 暖呼呼熱湯',
             title: '純素拉麵或蔬食咖啡廳午餐',
+            photos: [{ title: '天神_(福岡市)', label: '天神美食圈' }],
             chips: ['🚕 車程僅數分鐘', '🔥 雨天必喝熱湯'],
             points: [
               '搭計程車幾分鐘直達餐廳，下雨天來碗熱呼呼的湯最幸福。'
@@ -2121,6 +2237,7 @@
             art: 'lalaport_tenjin',
             tag: '🛍️ 百貨＆鋼彈',
             title: '天神地下街＆百貨群 或 LaLaport 福岡',
+            photos: [{ title: '三井ショッピングパーク_ららぽーと福岡', label: 'LaLaport 福岡' }, { title: '天神地下街', label: '天神地下街' }],
             chips: ['🏠 全室內超好逛', '🤖 實物大鋼彈'],
             points: [
               '想優雅買伴手禮可逛天神地下街與岩田屋百貨。',
@@ -2138,6 +2255,7 @@
             art: 'tenjin_dinner',
             tag: '🍲 室內暖心晚餐',
             title: '室內溫馨晚餐 或 外帶熟食回公寓',
+            photos: [{ title: 'ソラリアステージ', label: '天神 Solaria' }],
             chips: ['☔ 彈性免奔波', '🍵 回房配熱茶'],
             points: [
               '若外面雨勢較大，外帶熱騰騰的純素料理回 SPAZIO 6 一家人聊天也很愜意。'
@@ -2153,6 +2271,7 @@
             art: 'spazio_hotel',
             tag: '☕ 房內早餐',
             title: '公寓房內暖心早餐 → 退房',
+            photos: [{ title: '博多駅', label: '博多早晨' }],
             chips: ['☔ 免出門找早餐', '🍳 廚房輕鬆加熱'],
             points: [
               '直接在房內加熱昨晚買好的純素飯糰與熱飲，從容打包退房。'
@@ -2165,6 +2284,7 @@
             art: 'breakfast_flight',
             tag: '🛫 乾爽返台',
             title: '計程車直達福岡機場國際線 → 搭機返台',
+            photos: [{ title: '福岡空港', label: '福岡機場國際線' }],
             chips: ['🚕 直達雨遮下方', '🛍️ 免稅店採買'],
             points: [
               '請計程車開到國際線航廈雨遮下方乾爽入關，過安檢後在免稅店採買，10:55 搭 IT241 返台。'
@@ -2301,6 +2421,7 @@
     let currentMeatDay = 1;
     let weatherMode = 'sunny';
     let dailyWeatherMap = {};
+    let wikiPhotoMap = {};
 
     // ---------- Tabs ----------
     function switchTab(tabId) {
@@ -2449,10 +2570,28 @@
       }
 
       const items = ITINERARY[weatherMode][currentDay] || [];
-      document.getElementById('itineraryList').innerHTML = items.map(item => `
+      document.getElementById('itineraryList').innerHTML = items.map(item => {
+        const resolvedPhotos = (item.photos || [])
+          .map(p => ({ url: wikiPhotoMap[p.title], label: p.label }))
+          .filter(p => !!p.url);
+
+        const photoLayer = resolvedPhotos.length ? `
+          <div class="photo-grid ${resolvedPhotos.length > 1 ? 'two-col' : ''}">
+            ${resolvedPhotos.map(p => `
+              <div class="photo-cell" onclick="openLightbox('${p.url.replace(/'/g, "\\'")}', '${p.label.replace(/'/g, "\\'")}')">
+                <img src="${p.url}" alt="${p.label}" loading="lazy" decoding="async" onerror="this.closest('.photo-cell').style.display='none'" />
+                <div class="photo-scrim"></div>
+                <span class="photo-caption">📷 ${p.label}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : '';
+
+        return `
         <div class="timeline-item">
           <div class="spot-hero">
             ${SPOT_ART[item.art] || ''}
+            ${photoLayer}
             <div class="spot-hero-top">
               <span class="hero-time-pill">🕒 ${item.time}</span>
               ${item.tag ? `<span class="hero-tag-pill">${item.tag}</span>` : ''}
@@ -2479,13 +2618,13 @@
               `).join('')}
               ${item.photoQ ? `
                 <a class="btn btn-photo btn-sm" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.photoQ)}">
-                  📷 看實景照
+                  📷 更多實景照
                 </a>
               ` : ''}
             </div>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
     }
 
     function decodeWeatherCode(code) {
@@ -2693,6 +2832,7 @@
       deferredInstallPrompt = null;
       showToast('🎉 已成功安裝「福岡家族遊」APP！');
       updateInstallUI();
+    fetchWikiPhotos();
     });
 
     function dismissInstallBar() {
@@ -2744,6 +2884,79 @@
 
     function closeInstallGuide() {
       document.getElementById('installGuideModal').classList.remove('open');
+    }
+
+    // ---------- Real Photos Loader (Wikipedia / Wikimedia Commons) ----------
+    function openLightbox(url, caption) {
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightboxCap').textContent = caption;
+      document.getElementById('photoLightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('photoLightbox').classList.remove('open');
+    }
+
+    async function fetchWikiPhotos() {
+      try {
+        const cached = JSON.parse(localStorage.getItem('fk_wiki_photos_v1') || '{}');
+        if (cached && typeof cached === 'object' && Object.keys(cached).length > 0) {
+          wikiPhotoMap = cached;
+          renderItinerary();
+        }
+      } catch (e) {}
+
+      if (!navigator.onLine) return;
+
+      const titleSet = new Set();
+      ['sunny', 'rainy'].forEach(mode => {
+        [1, 2, 3].forEach(day => {
+          (ITINERARY[mode][day] || []).forEach(item => {
+            (item.photos || []).forEach(p => titleSet.add(p.title));
+          });
+        });
+      });
+
+      const allTitles = Array.from(titleSet);
+      for (let i = 0; i < allTitles.length; i += 15) {
+        const chunk = allTitles.slice(i, i + 15);
+        const url = 'https://ja.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=900&titles=' + encodeURIComponent(chunk.join('|'));
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (!data.query || !data.query.pages) continue;
+
+          // Build reverse lookup map for normalized + redirected titles
+          const reverseMap = {};
+          const addEdge = (to, from) => {
+            if (!reverseMap[to]) reverseMap[to] = [];
+            reverseMap[to].push(from);
+          };
+          (data.query.normalized || []).forEach(n => addEdge(n.to, n.from));
+          (data.query.redirects || []).forEach(r => addEdge(r.to, r.from));
+
+          Object.values(data.query.pages).forEach(page => {
+            if (page.thumbnail && page.thumbnail.source) {
+              const imgUrl = page.thumbnail.source;
+              const queue = [page.title];
+              const visited = new Set();
+              while (queue.length > 0) {
+                const cur = queue.shift();
+                if (visited.has(cur)) continue;
+                visited.add(cur);
+                wikiPhotoMap[cur] = imgUrl;
+                wikiPhotoMap[cur.replace(/ /g, '_')] = imgUrl;
+                (reverseMap[cur] || []).forEach(prev => queue.push(prev));
+              }
+            }
+          });
+        } catch (e) {}
+      }
+
+      try {
+        localStorage.setItem('fk_wiki_photos_v1', JSON.stringify(wikiPhotoMap));
+      } catch (e) {}
+      renderItinerary();
     }
 
     // ---------- Init ----------

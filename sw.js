@@ -1,4 +1,5 @@
-const CACHE_NAME = 'fukuoka-family-pwa-v4';
+const CACHE_NAME = 'fukuoka-family-pwa-v5';
+const PHOTO_CACHE = 'fukuoka-photos-v1';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -19,7 +20,9 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys
+          .filter((key) => key !== CACHE_NAME && key !== PHOTO_CACHE)
+          .map((key) => caches.delete(key))
       )
     )
   );
@@ -33,6 +36,24 @@ self.addEventListener('fetch', (event) => {
   if (url.hostname.includes('open-meteo.com')) {
     event.respondWith(
       fetch(event.request).catch(() => new Response(null, { status: 503 }))
+    );
+    return;
+  }
+
+  // Wikimedia 實景照片：快取優先，載入過一次後離線也能看
+  if (url.hostname.includes('upload.wikimedia.org')) {
+    event.respondWith(
+      caches.open(PHOTO_CACHE).then((cache) =>
+        cache.match(event.request).then((cached) => {
+          if (cached) return cached;
+          return fetch(event.request).then((response) => {
+            if (response && (response.status === 200 || response.type === 'opaque')) {
+              cache.put(event.request, response.clone());
+            }
+            return response;
+          });
+        })
+      )
     );
     return;
   }
