@@ -938,6 +938,100 @@
       margin-top: 1px;
     }
 
+  
+    /* Visual Illustrated Itinerary Cards */
+    .timeline-item {
+      padding: 0;
+      overflow: hidden;
+      border-left: none;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(53, 50, 48, 0.065);
+    }
+    .spot-hero {
+      position: relative;
+      width: 100%;
+      height: 146px;
+      overflow: hidden;
+      background: #f2ede7;
+      border-bottom: 1px solid var(--border);
+    }
+    .spot-hero svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .spot-hero-top {
+      position: absolute;
+      top: 10px;
+      left: 11px;
+      right: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .hero-time-pill {
+      background: rgba(53, 50, 48, 0.78);
+      backdrop-filter: blur(6px);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.2px;
+    }
+    .hero-tag-pill {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      color: var(--primary-dark);
+      font-size: 0.73rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .spot-body {
+      padding: 13px 15px 15px;
+    }
+    .spot-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 10px;
+    }
+    .spot-chip {
+      background: #f6f3ef;
+      color: #5c5550;
+      border: 1px solid #e9e4df;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .spot-points {
+      margin: 0 0 10px;
+      padding-left: 17px;
+      font-size: 0.87rem;
+      color: #464240;
+      line-height: 1.56;
+    }
+    .spot-points li {
+      margin-bottom: 4px;
+    }
+    .spot-points li:last-child {
+      margin-bottom: 0;
+    }
+    .btn-photo {
+      background: #f4f1ed;
+      color: #464240;
+      border: 1px solid #e2dcd5;
+    }
+
   </style>
 </head>
 <body>
@@ -1353,20 +1447,410 @@
 
   <script>
     // ---------- Data ----------
+    const SPOT_ART = {
+      airport: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gAir" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f7ebe6"/>
+              <stop offset="100%" stop-color="#e8d8d0"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gAir)"/>
+          <circle cx="315" cy="54" r="34" fill="#d97a76" opacity="0.72"/>
+          <path d="M0 132 Q95 98 195 122 T400 112 L400 175 L0 175 Z" fill="#cfc5be"/>
+          <path d="M0 148 Q120 128 240 145 T400 138 L400 175 L0 175 Z" fill="#524d4b" opacity="0.22"/>
+          <!-- Clouds -->
+          <rect x="44" y="42" width="66" height="14" rx="7" fill="#ffffff" opacity="0.75"/>
+          <rect x="145" y="64" width="52" height="12" rx="6" fill="#ffffff" opacity="0.6"/>
+          <!-- Airplane -->
+          <g transform="translate(152,66) rotate(-8)">
+            <path d="M0 16 L84 8 C96 7 104 12 96 16 L10 24 Z" fill="#3d3938"/>
+            <path d="M36 12 L18 -8 L32 -9 L56 10 Z" fill="#bf5250"/>
+            <path d="M40 19 L24 34 L36 33 L58 18 Z" fill="#3d3938"/>
+            <path d="M2 16 L-10 3 L-2 3 L12 15 Z" fill="#bf5250"/>
+          </g>
+          <!-- Taxi silhouette on runway/road -->
+          <g transform="translate(278,134)">
+            <rect x="0" y="10" width="52" height="15" rx="5" fill="#3d3938"/>
+            <path d="M10 10 L17 2 L35 2 L42 10 Z" fill="#3d3938"/>
+            <rect x="22" y="-2" width="8" height="4" rx="1.5" fill="#bf5250"/>
+            <circle cx="12" cy="25" r="5" fill="#faf6f2" stroke="#3d3938" stroke-width="3"/>
+            <circle cx="40" cy="25" r="5" fill="#faf6f2" stroke="#3d3938" stroke-width="3"/>
+          </g>
+        </svg>`,
+
+      hakata_lunch: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#f5efe9"/>
+          <rect x="0" y="122" width="400" height="53" fill="#e5dad0"/>
+          <!-- Warm Noren curtain top -->
+          <rect x="24" y="0" width="58" height="36" rx="3" fill="#bf5250" opacity="0.82"/>
+          <rect x="90" y="0" width="58" height="36" rx="3" fill="#bf5250" opacity="0.82"/>
+          <rect x="156" y="0" width="58" height="36" rx="3" fill="#bf5250" opacity="0.82"/>
+          <!-- Bento Box -->
+          <rect x="64" y="68" width="124" height="72" rx="10" fill="#3d3938"/>
+          <rect x="72" y="76" width="52" height="56" rx="6" fill="#fcfaf7"/>
+          <rect x="130" y="76" width="50" height="25" rx="5" fill="#d97a76" opacity="0.85"/>
+          <rect x="130" y="106" width="50" height="26" rx="5" fill="#8fa889"/>
+          <!-- Onigiri inside -->
+          <path d="M98 84 L115 118 Q98 124 81 118 Z" fill="#f3ece4" stroke="#3d3938" stroke-width="2"/>
+          <rect x="90" y="108" width="16" height="12" rx="2" fill="#3d3938"/>
+          <!-- Soup Bowl -->
+          <g transform="translate(232,78)">
+            <path d="M18 -14 Q14 -22 18 -28 M36 -16 Q32 -24 36 -30 M54 -14 Q50 -22 54 -28" stroke="#bf5250" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <path d="M0 12 C0 44 16 58 38 58 C60 58 76 44 76 12 Z" fill="#bf5250"/>
+            <ellipse cx="38" cy="12" rx="38" ry="10" fill="#f2d399"/>
+            <circle cx="30" cy="12" r="5" fill="#7c9a74"/>
+            <circle cx="48" cy="13" r="4" fill="#d97a76"/>
+          </g>
+        </svg>`,
+
+      kushida_fullfull: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#f7efe8"/>
+          <circle cx="112" cy="86" r="54" fill="#f0d5cf"/>
+          <!-- Kushida Torii Gate -->
+          <g transform="translate(52,44)" fill="#bf5250">
+            <path d="M0 16 Q60 28 120 16 L115 26 Q60 36 5 26 Z"/>
+            <rect x="14" y="38" width="92" height="9" rx="3"/>
+            <rect x="55" y="25" width="10" height="16"/>
+            <rect x="26" y="26" width="12" height="84" rx="3"/>
+            <rect x="82" y="26" width="12" height="84" rx="3"/>
+          </g>
+          <!-- Ground -->
+          <rect x="0" y="142" width="400" height="33" fill="#e6ddd5"/>
+          <!-- Full Full Mentaiko Baguette -->
+          <g transform="translate(204,76) rotate(-14)">
+            <rect x="0" y="12" width="144" height="44" rx="22" fill="#d49a5a" stroke="#7a522a" stroke-width="2.5"/>
+            <!-- Crispy slash cuts with Mentaiko cream -->
+            <path d="M26 16 Q42 32 30 48" stroke="#d46b68" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M62 15 Q78 31 66 47" stroke="#d46b68" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M98 16 Q114 32 102 48" stroke="#d46b68" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M26 16 Q42 32 30 48 M62 15 Q78 31 66 47 M98 16 Q114 32 102 48" stroke="#fcf2e3" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/>
+          </g>
+          <!-- Sparkles -->
+          <circle cx="222" cy="60" r="3" fill="#bf5250"/>
+          <circle cx="348" cy="48" r="4" fill="#d97a76"/>
+        </svg>`,
+
+      spazio_hotel: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#f3eee9"/>
+          <!-- Window with evening skyline -->
+          <rect x="236" y="24" width="126" height="92" rx="8" fill="#464241" stroke="#353230" stroke-width="4"/>
+          <circle cx="332" cy="48" r="12" fill="#f5dfad"/>
+          <rect x="250" y="74" width="22" height="42" fill="#5e5957"/>
+          <rect x="278" y="60" width="28" height="56" fill="#524d4b"/>
+          <rect x="312" y="80" width="36" height="36" fill="#5e5957"/>
+          <!-- Warm pendant lamp -->
+          <line x1="112" y1="0" x2="112" y2="38" stroke="#353230" stroke-width="2.5"/>
+          <path d="M84 56 Q112 30 140 56 Z" fill="#bf5250"/>
+          <ellipse cx="112" cy="60" rx="18" ry="6" fill="#f7dca4" opacity="0.7"/>
+          <!-- Cozy Bed & Tea -->
+          <rect x="36" y="106" width="166" height="44" rx="8" fill="#ffffff" stroke="#d9d1c9" stroke-width="2"/>
+          <rect x="48" y="96" width="44" height="18" rx="6" fill="#e8dfd6"/>
+          <rect x="102" y="96" width="44" height="18" rx="6" fill="#e8dfd6"/>
+          <rect x="36" y="122" width="166" height="28" rx="6" fill="#bf5250" opacity="0.82"/>
+          <!-- Floor -->
+          <rect x="0" y="150" width="400" height="25" fill="#e3dad0"/>
+        </svg>`,
+
+      christmas_market: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gNight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#353235"/>
+              <stop offset="100%" stop-color="#4e4648"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gNight)"/>
+          <!-- Twinkling string lights -->
+          <path d="M0 32 Q100 62 200 34 T400 38" fill="none" stroke="#d6c8b8" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="52" cy="45" r="4" fill="#fde68a"/>
+          <circle cx="118" cy="48" r="4" fill="#f5a5a3"/>
+          <circle cx="188" cy="36" r="4" fill="#fde68a"/>
+          <circle cx="264" cy="44" r="4" fill="#fde68a"/>
+          <circle cx="338" cy="43" r="4" fill="#f5a5a3"/>
+          <!-- Christmas Tree -->
+          <g transform="translate(158,34)">
+            <polygon points="42,10 12,56 72,56" fill="#567562"/>
+            <polygon points="42,34 4,90 80,90" fill="#466351"/>
+            <polygon points="42,60 -4,120 88,120" fill="#395243"/>
+            <rect x="34" y="120" width="16" height="18" fill="#7a5b47"/>
+            <circle cx="42" cy="10" r="7" fill="#fde68a"/>
+            <circle cx="32" cy="46" r="4" fill="#d96b68"/>
+            <circle cx="54" cy="70" r="4" fill="#fde68a"/>
+            <circle cx="24" cy="96" r="4" fill="#fde68a"/>
+            <circle cx="62" cy="102" r="4" fill="#d96b68"/>
+          </g>
+          <!-- Wooden Market Stall -->
+          <g transform="translate(278,86)">
+            <polygon points="-8,18 46,-2 100,18" fill="#bf5250"/>
+            <rect x="4" y="18" width="84" height="58" fill="#735a4c"/>
+            <rect x="14" y="28" width="64" height="24" rx="3" fill="#fde68a" opacity="0.85"/>
+          </g>
+          <!-- Ground -->
+          <rect x="0" y="158" width="400" height="17" fill="#2c2829"/>
+        </svg>`,
+
+      yufuin_morning: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gDawn" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f4e4dc"/>
+              <stop offset="100%" stop-color="#faf3ec"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gDawn)"/>
+          <circle cx="88" cy="74" r="36" fill="#d97a76" opacity="0.72"/>
+          <path d="M0 128 Q120 96 240 122 T400 112 L400 175 L0 175 Z" fill="#d8cec5"/>
+          <!-- Tour Bus -->
+          <g transform="translate(128,84)">
+            <rect x="0" y="6" width="154" height="52" rx="10" fill="#ffffff" stroke="#3d3938" stroke-width="3"/>
+            <rect x="0" y="38" width="154" height="10" fill="#bf5250"/>
+            <rect x="14" y="14" width="26" height="18" rx="3" fill="#52687a" opacity="0.8"/>
+            <rect x="46" y="14" width="26" height="18" rx="3" fill="#52687a" opacity="0.8"/>
+            <rect x="78" y="14" width="26" height="18" rx="3" fill="#52687a" opacity="0.8"/>
+            <rect x="112" y="14" width="30" height="20" rx="3" fill="#52687a" opacity="0.85"/>
+            <circle cx="34" cy="58" r="10" fill="#3d3938"/>
+            <circle cx="34" cy="58" r="4" fill="#f8f6f4"/>
+            <circle cx="122" cy="58" r="10" fill="#3d3938"/>
+            <circle cx="122" cy="58" r="4" fill="#f8f6f4"/>
+          </g>
+        </svg>`,
+
+      yufuin_lake: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gYufu" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e8eff2"/>
+              <stop offset="100%" stop-color="#f7f3ee"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gYufu)"/>
+          <!-- Mt. Yufu Twin Peaks -->
+          <path d="M20 116 L116 38 L164 76 L212 34 L318 116 Z" fill="#7c8f88" opacity="0.58"/>
+          <!-- Morning Mist -->
+          <rect x="0" y="100" width="400" height="18" fill="#ffffff" opacity="0.55"/>
+          <!-- Kinrin Lake -->
+          <rect x="0" y="114" width="400" height="61" fill="#8ca8b8" opacity="0.65"/>
+          <line x1="44" y1="134" x2="114" y2="134" stroke="#ffffff" stroke-width="2" opacity="0.55" stroke-linecap="round"/>
+          <line x1="256" y1="148" x2="342" y2="148" stroke="#ffffff" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+          <!-- Lakeside Red Torii -->
+          <g transform="translate(56,92)" fill="#bf5250">
+            <path d="M0 6 Q20 10 40 6 L38 10 Q20 14 2 10 Z"/>
+            <rect x="5" y="14" width="30" height="3.5"/>
+            <rect x="9" y="10" width="4.5" height="28"/>
+            <rect x="26" y="10" width="4.5" height="28"/>
+          </g>
+          <!-- Yufuin no Mori Iconic Green Train -->
+          <g transform="translate(154,96)">
+            <path d="M0 6 L194 6 C210 6 220 16 220 30 L220 34 L0 34 Z" fill="#2f664b"/>
+            <rect x="0" y="25" width="218" height="4" fill="#d9b970"/>
+            <rect x="14" y="11" width="32" height="11" rx="2" fill="#eef5f1"/>
+            <rect x="54" y="11" width="32" height="11" rx="2" fill="#eef5f1"/>
+            <rect x="94" y="11" width="32" height="11" rx="2" fill="#eef5f1"/>
+            <rect x="134" y="11" width="32" height="11" rx="2" fill="#eef5f1"/>
+            <path d="M174 11 L202 11 C208 11 212 16 212 22 L174 22 Z" fill="#eef5f1"/>
+          </g>
+        </svg>`,
+
+      beppu_dazaifu: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#f4f1ed"/>
+          <!-- Umi Jigoku Cobalt Pond (Left) -->
+          <ellipse cx="122" cy="134" rx="108" ry="34" fill="#4f94b8"/>
+          <ellipse cx="122" cy="136" rx="84" ry="22" fill="#77b6d4" opacity="0.65"/>
+          <!-- Hot spring steam -->
+          <path d="M74 108 Q64 82 78 60 Q92 40 78 24" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.72"/>
+          <path d="M126 102 Q114 74 130 50 Q144 30 128 14" stroke="#ffffff" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.78"/>
+          <path d="M170 110 Q162 86 174 66" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.65"/>
+          <!-- Dazaifu Torii & Plum Blossoms (Right) -->
+          <g transform="translate(248,54)" fill="#bf5250">
+            <path d="M0 14 Q52 24 104 14 L100 22 Q52 30 4 22 Z"/>
+            <rect x="12" y="32" width="80" height="8" rx="2.5"/>
+            <rect x="48" y="21" width="8" height="14"/>
+            <rect x="22" y="22" width="10" height="74" rx="2.5"/>
+            <rect x="72" y="22" width="10" height="74" rx="2.5"/>
+          </g>
+          <!-- Plum Blossoms -->
+          <g fill="#d97a76" opacity="0.88">
+            <circle cx="242" cy="48" r="6"/><circle cx="250" cy="42" r="6"/><circle cx="250" cy="54" r="6"/>
+            <circle cx="352" cy="52" r="5.5"/><circle cx="360" cy="46" r="5.5"/><circle cx="360" cy="58" r="5.5"/>
+          </g>
+        </svg>`,
+
+      tenjin_dinner: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gDusk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#474245"/>
+              <stop offset="100%" stop-color="#695c5e"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gDusk)"/>
+          <!-- Department store silhouettes -->
+          <rect x="30" y="42" width="88" height="114" rx="4" fill="#353133"/>
+          <rect x="134" y="24" width="112" height="132" rx="4" fill="#3f3a3c"/>
+          <rect x="262" y="54" width="106" height="102" rx="4" fill="#353133"/>
+          <!-- Warm glowing windows -->
+          <g fill="#fde68a" opacity="0.8">
+            <rect x="44" y="58" width="18" height="12" rx="2"/><rect x="74" y="58" width="18" height="12" rx="2"/>
+            <rect x="44" y="82" width="18" height="12" rx="2"/><rect x="74" y="82" width="18" height="12" rx="2"/>
+            <rect x="150" y="42" width="24" height="14" rx="2"/><rect x="184" y="42" width="24" height="14" rx="2"/>
+            <rect x="150" y="68" width="24" height="14" rx="2"/><rect x="184" y="68" width="24" height="14" rx="2"/>
+            <rect x="150" y="94" width="58" height="18" rx="3" fill="#d97a76"/>
+          </g>
+          <!-- Shopping bag icon foreground -->
+          <g transform="translate(292,98)">
+            <path d="M12 12 C12 0 36 0 36 12" fill="none" stroke="#f8f6f4" stroke-width="3"/>
+            <rect x="4" y="12" width="40" height="42" rx="5" fill="#bf5250"/>
+            <circle cx="24" cy="33" r="6" fill="#fde68a" opacity="0.9"/>
+          </g>
+          <rect x="0" y="156" width="400" height="19" fill="#2a2628"/>
+        </svg>`,
+
+      breakfast_flight: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gMorn" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f7efe8"/>
+              <stop offset="100%" stop-color="#e5eef4"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="175" fill="url(#gMorn)"/>
+          <circle cx="84" cy="58" r="28" fill="#f2c57c" opacity="0.82"/>
+          <!-- Takeoff Airplane -->
+          <g transform="translate(216,58) rotate(-18)">
+            <path d="M0 14 L86 8 C98 7 104 12 96 16 L8 22 Z" fill="#3d3938"/>
+            <path d="M36 11 L18 -8 L32 -9 L56 10 Z" fill="#bf5250"/>
+            <path d="M40 18 L24 32 L36 31 L56 17 Z" fill="#3d3938"/>
+            <path d="M2 14 L-10 2 L-2 2 L12 13 Z" fill="#bf5250"/>
+          </g>
+          <!-- Dotted flight trail -->
+          <path d="M64 134 Q146 112 206 78" fill="none" stroke="#bf5250" stroke-width="2.5" stroke-dasharray="6 6" opacity="0.65"/>
+          <!-- Warm Tea Cup -->
+          <g transform="translate(60,104)">
+            <rect x="0" y="12" width="38" height="32" rx="6" fill="#ffffff" stroke="#3d3938" stroke-width="2.5"/>
+            <path d="M38 18 C48 18 48 36 38 36" fill="none" stroke="#3d3938" stroke-width="2.5"/>
+            <path d="M12 4 Q10 -4 14 -10 M24 4 Q22 -4 26 -10" stroke="#bf5250" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>`,
+
+      rainy_arcade: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#e6edf3"/>
+          <!-- Rain streaks -->
+          <g stroke="#7a95ab" stroke-width="2" stroke-linecap="round" opacity="0.45">
+            <line x1="42" y1="18" x2="34" y2="42"/><line x1="94" y1="12" x2="86" y2="36"/>
+            <line x1="312" y1="18" x2="304" y2="42"/><line x1="360" y1="26" x2="352" y2="50"/>
+          </g>
+          <!-- Covered Arcade Arch -->
+          <path d="M48 158 L48 64 Q200 12 352 64 L352 158 Z" fill="#ffffff" stroke="#52687a" stroke-width="3"/>
+          <path d="M74 158 L74 74 Q200 32 326 74 L326 158 Z" fill="#f8f5f1"/>
+          <!-- Hanging warm lanterns -->
+          <g transform="translate(116,58)">
+            <line x1="12" y1="0" x2="12" y2="10" stroke="#52687a" stroke-width="2"/>
+            <ellipse cx="12" cy="24" rx="11" ry="14" fill="#d97a76"/>
+          </g>
+          <g transform="translate(260,58)">
+            <line x1="12" y1="0" x2="12" y2="10" stroke="#52687a" stroke-width="2"/>
+            <ellipse cx="12" cy="24" rx="11" ry="14" fill="#d97a76"/>
+          </g>
+          <!-- Umbrella -->
+          <g transform="translate(168,84)">
+            <path d="M0 32 Q32 -6 64 32 Z" fill="#52687a"/>
+            <path d="M32 32 L32 58 Q32 66 24 66" fill="none" stroke="#353230" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>`,
+
+      art_museum: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#eef2f5"/>
+          <rect x="0" y="138" width="400" height="37" fill="#dce3ea"/>
+          <!-- Gallery Frames -->
+          <rect x="46" y="34" width="76" height="86" rx="4" fill="#ffffff" stroke="#52687a" stroke-width="3"/>
+          <circle cx="84" cy="74" r="20" fill="#bf5250" opacity="0.82"/>
+          <rect x="156" y="24" width="94" height="96" rx="4" fill="#ffffff" stroke="#52687a" stroke-width="3"/>
+          <path d="M168 104 L196 58 L216 84 L236 66 L242 104 Z" fill="#52687a" opacity="0.72"/>
+          <circle cx="226" cy="46" r="8" fill="#e5b970"/>
+          <rect x="282" y="38" width="72" height="82" rx="4" fill="#ffffff" stroke="#52687a" stroke-width="3"/>
+          <rect x="298" y="54" width="40" height="50" rx="20" fill="#8ca8b8" opacity="0.7"/>
+        </svg>`,
+
+      vegan_ramen: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#eef2f5"/>
+          <rect x="0" y="128" width="400" height="47" fill="#dde4eb"/>
+          <!-- Steaming Ramen Bowl -->
+          <g transform="translate(132,54)">
+            <path d="M36 4 Q28 -10 38 -22 M68 0 Q60 -14 70 -26 M100 4 Q92 -10 102 -22" stroke="#52687a" stroke-width="3.2" fill="none" stroke-linecap="round" opacity="0.5"/>
+            <path d="M6 34 C6 82 32 98 68 98 C104 98 130 82 130 34 Z" fill="#3d4f5e"/>
+            <path d="M44 98 L48 108 L88 108 L92 98 Z" fill="#3d4f5e"/>
+            <ellipse cx="68" cy="34" rx="62" ry="15" fill="#f3dcb2"/>
+            <!-- Veggie Toppings -->
+            <circle cx="44" cy="34" r="9" fill="#7c9a74"/>
+            <circle cx="68" cy="36" r="8" fill="#bf5250" opacity="0.85"/>
+            <circle cx="92" cy="33" r="8" fill="#e5b970"/>
+            <!-- Chopsticks -->
+            <line x1="88" y1="24" x2="152" y2="2" stroke="#7a5b47" stroke-width="4" stroke-linecap="round"/>
+            <line x1="94" y1="30" x2="156" y2="12" stroke="#7a5b47" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>`,
+
+      lalaport_tenjin: `
+        <svg viewBox="0 0 400 175" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="175" fill="#ebf0f4"/>
+          <!-- Mall Glass Atrium -->
+          <rect x="28" y="34" width="186" height="122" rx="10" fill="#ffffff" stroke="#52687a" stroke-width="2.5"/>
+          <line x1="28" y1="74" x2="214" y2="74" stroke="#d9e2ea" stroke-width="2"/>
+          <line x1="28" y1="114" x2="214" y2="114" stroke="#d9e2ea" stroke-width="2"/>
+          <line x1="90" y1="34" x2="90" y2="156" stroke="#d9e2ea" stroke-width="2"/>
+          <line x1="152" y1="34" x2="152" y2="156" stroke="#d9e2ea" stroke-width="2"/>
+          <!-- Minimalist Mecha Head Silhouette (LaLaport Fukuoka nod) -->
+          <g transform="translate(262,36)">
+            <polygon points="44,18 68,36 62,74 44,86 26,74 20,36" fill="#ffffff" stroke="#3d4f5e" stroke-width="3"/>
+            <!-- V-fin -->
+            <path d="M44 38 L10 14 L18 28 L44 46 L70 28 L78 14 Z" fill="#d9b25f" stroke="#3d4f5e" stroke-width="2"/>
+            <polygon points="44,24 38,44 50,44" fill="#bf5250"/>
+            <!-- Visor -->
+            <rect x="28" y="48" width="32" height="8" rx="2" fill="#3d4f5e"/>
+            <rect x="38" y="70" width="12" height="8" rx="2" fill="#bf5250"/>
+            <!-- Shoulders -->
+            <path d="M8 120 L26 88 L62 88 L80 120 Z" fill="#52687a"/>
+          </g>
+          <rect x="0" y="156" width="400" height="19" fill="#d5dfe8"/>
+        </svg>`
+    };
+
     const ITINERARY = {
       sunny: {
         1: [
           {
             time: '10:00 – 11:30',
+            art: 'airport',
+            tag: '✈️ 抵達福岡',
             title: '抵達福岡機場 → 博多車站寄放行李',
-            desc: '三人無託運行李可快速通關！出關後直接搭計程車前往博多車站（約 15 分鐘），將隨身行李寄放於車站置物櫃，輕鬆開啟旅程。',
+            chips: ['🧳 無託運快速通關', '🚕 計程車約 15 分'],
+            points: [
+              '出關後直接搭計程車前往博多車站，輕鬆免轉車。',
+              '將隨身行李寄放於博多站置物櫃，輕裝開啟旅程。'
+            ],
+            photoQ: '福岡空港 博多駅',
             maps: [{ name: '博多車站', q: 'Hakata Station Fukuoka' }]
           },
           {
             time: '11:30 – 13:00',
+            art: 'hakata_lunch',
+            tag: '🍱 車站蔬食午餐',
             title: '博多車站暖心蔬食午餐',
-            desc: '剛下飛機先在車站內輕鬆用餐補充體力，完全不用吹冷風找路。',
-            veg: '🍱 推薦：Evah Dining（JR 博多站 Deitos 一品通內，純素便當與飯糰）或 Soup Stock Tokyo（Amu Plaza B1F，認明菜單 VEG 標示蔬食湯品與咖哩）。',
+            chips: ['🏠 全室內免吹風', '🥬 素食選擇多'],
+            points: [
+              '剛下飛機先在車站內用餐補體力，不用吹冷風找路。'
+            ],
+            veg: '🍱 推薦：Evah Dining（Deitos 一品通純素便當飯糰）或 Soup Stock Tokyo（Amu Plaza B1F，認明 VEG 標示湯品咖哩）。',
+            photoQ: 'Evah Dining 博多',
             maps: [
               { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
               { name: 'Soup Stock Tokyo 博多', q: 'Soup Stock Tokyo Amu Plaza Hakata' }
@@ -1374,9 +1858,17 @@
           },
           {
             time: '13:30 – 16:30',
-            title: '櫛田神社 → 川端通商店街 → The Full Full Hakata → 博多運河城',
-            desc: '全部景點都在步行 5–10 分鐘圈內！參拜櫛田神社、逛川端通商店街後，順路到旁邊的人氣麵包店「The Full Full Hakata」領取預訂的明太子法國麵包（週五營業至 19:00），再進運河城看水舞、坐下來喝杯熱茶。',
-            veg: '🥖 貼心提醒：明太子為魚卵（葷食），現場可幫長輩挑選店內原味或無肉類麵包（確認蛋奶成分）；商店街也有紅豆湯與烤糰子可享用。若博多店售完，晚間天神店（Full Full Bld.）營業至 20:00 可備案。',
+            art: 'kushida_fullfull',
+            tag: '🥖 必吃明太子法棍',
+            title: '櫛田神社 → 川端通 → Full Full 麵包 → 運河城',
+            chips: ['🚶 步行 5–10 分圈', '🥖 週五開到 19:00', '⛲ 運河城水舞'],
+            points: [
+              '參拜博多總鎮守櫛田神社，順逛懷舊川端通商店街。',
+              '轉個彎到「The Full Full Hakata」領預訂的明太子法國麵包。',
+              '最後進博多運河城看水舞、找咖啡廳坐著喝熱茶休息。'
+            ],
+            veg: '🥖 明太子為魚卵（葷食），現場可替岳母挑原味或無肉類麵包（確認蛋奶）；商店街也有紅豆湯與烤糰子。若博多店完售，天神店（Full Full Bld.）開到 20:00。',
+            photoQ: 'The Full Full Hakata 明太子麵包',
             maps: [
               { name: '櫛田神社', q: 'Kushida Shrine Fukuoka' },
               { name: 'The Full Full Hakata', q: 'The Full Full Hakata Fukuoka' },
@@ -1386,15 +1878,29 @@
           },
           {
             time: '16:30 – 18:00',
+            art: 'spazio_hotel',
+            tag: '🏠 入住小憩',
             title: '領行李 → SPAZIO 6 辦理入住小憩',
-            desc: '回博多車站領取行李，搭計程車約 5 分鐘抵達 SPAZIO 6 Hakata Station，辦理自助入住讓大家稍作休息。',
+            chips: ['🚕 車程約 5 分', '🔑 自助密碼入住'],
+            points: [
+              '回博多車站領取行李，搭計程車 5 分鐘抵達住宿。',
+              '進房放行李、稍作休息充充電再出門吃晚餐。'
+            ],
+            photoQ: 'SPAZIO 6 Hakata Station',
             maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
           },
           {
             time: '18:30 – 20:30',
-            title: '溫馨蔬食晚餐 → 博多車站聖誕市集＆預備明日早餐',
-            desc: '晚餐後漫步博多車站前廣場欣賞 12 月聖誕燈飾。因明天由布院一日遊 07:40 集合偏早，今晚記得順手在博多站買好明天早上的純素飯糰／便當帶回公寓冰箱！',
-            veg: '🍱 推薦：Tomoyasu Seisakusho（冷泉町義式餐酒館，有專屬純素菜單，環境舒適）或 Bugoro All Vegan（純素博多拉麵，座位僅 3 席、只收現金，建議事先預約）。回房前可至 Evah Dining 先備妥隔日純素飯糰。',
+            art: 'christmas_market',
+            tag: '🎄 聖誕市集',
+            title: '溫馨蔬食晚餐 → 博多車站聖誕市集',
+            chips: ['✨ 12 月限定點燈', '🍙 順手買明日早餐'],
+            points: [
+              '餐後漫步博多車站前廣場，感受璀璨聖誕燈飾拍全家福。',
+              '因明天 07:40 集合偏早，回房前順手買好隔天純素早餐放冰箱。'
+            ],
+            veg: '🍱 推薦：Tomoyasu Seisakusho（義式餐酒館有專屬純素菜單）或 Bugoro All Vegan（純素拉麵，僅 3 席只收現金需預約）。',
+            photoQ: '博多車站 聖誕市集',
             maps: [
               { name: 'Tomoyasu Seisakusho', q: 'Tomoyasu Seisakusho Cafe Hakata' },
               { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
@@ -1405,16 +1911,30 @@
         2: [
           {
             time: '07:15 – 07:40',
-            title: 'SPAZIO 6 出發 → 博多車站集合（Klook A路線一日遊）',
-            desc: '建議 07:15 從住宿搭計程車前往博多車站集合點（車程約 5–10 分鐘），07:40 準時集合出發！【方案：Klook A路線・含海地獄＆由布院之森列車體驗，24 小時前可免費取消】',
-            veg: '🍙 貼心提醒：出發前可在公寓加熱昨晚買好的純素飯糰當早餐，並多帶一份純素便當／麵包上車當由布院午餐雙保險！',
+            art: 'yufuin_morning',
+            tag: '🚌 Klook A 路線',
+            title: 'SPAZIO 6 出發 → 博多車站集合出發',
+            chips: ['⏰ 07:40 準時集合', '🚕 07:15 搭車出門', '✅ 24h 前免費取消'],
+            points: [
+              '07:15 從住宿搭計程車赴博多車站集合點（車程約 5–10 分）。',
+              '上專車就能補眠，免去轉車與找路壓力。'
+            ],
+            veg: '🍙 出發前在公寓加熱昨晚買的純素飯糰當早餐，並多帶一份純素便當／麵包上車當由布院午餐雙保險！',
+            photoQ: '由布院之森',
             maps: [{ name: '博多車站（筑紫口）', q: 'Hakata Station Chikushi Exit Fukuoka' }]
           },
           {
             time: '上午 – 午後',
-            title: '由布院漫步（湯之坪街道＆金鱗湖）＋由布院之森列車體驗',
-            desc: '沿著平緩好走的湯之坪街道逛特色小店與吉卜力選物店，漫步至冬日晨霧夢幻的金鱗湖拍照，並搭乘人氣觀光列車「由布院之森」體驗段！山區比市區冷 3–5°C，務必穿暖並備好暖暖包。',
-            veg: '🍱 午餐推薦：Siesta Organic Cafe（由布院有機蔬食咖啡廳，同時提供全素／蛋奶素／去五辛與一般餐點，全家可安心同桌）；若假日客滿或時間較緊，可直接享用隨身帶的 Evah Dining 純素便當。',
+            art: 'yufuin_lake',
+            tag: '🚂 由布院之森',
+            title: '由布院漫步（湯之坪＆金鱗湖）＋觀光列車體驗',
+            chips: ['🧥 比市區冷 3–5°C', '🛍️ 平路好逛', '📸 夢幻湖景'],
+            points: [
+              '漫步平緩的湯之坪街道，逛吉卜力選物店與手作雜貨。',
+              '走訪冬日晨霧繚繞的金鱗湖，並搭乘「由布院之森」體驗段！'
+            ],
+            veg: '🍱 午餐推薦：Siesta Organic Cafe（有機蔬食咖啡廳，全素／蛋奶素／去五辛與葷食皆有，全家可同桌）；若客滿或時間緊可直接吃隨身便當。',
+            photoQ: '由布院 金鱗湖 湯之坪街道',
             maps: [
               { name: '湯之坪街道', q: 'Yunotsubo Kaido Yufuin' },
               { name: '金鱗湖', q: 'Lake Kinrin Yufuin' },
@@ -1423,9 +1943,16 @@
           },
           {
             time: '下午',
-            title: '別府海地獄溫泉 → 如意輪寺（青蛙寺）→ 太宰府天滿宮',
-            desc: '欣賞湛藍如海的別府「海地獄溫泉」（行程已含門票），接著走訪可愛療癒的如意輪寺（青蛙寺），最後參拜太宰府天滿宮並逛表參道。',
-            veg: '🍡 必吃：太宰府表參道現烤「梅枝餅」（紅豆內餡麻糬，素食可安心享用）；若海地獄有附贈溫泉蛋，不吃蛋可避開。',
+            art: 'beppu_dazaifu',
+            tag: '♨️ 海地獄・太宰府',
+            title: '別府海地獄 → 如意輪寺（青蛙寺）→ 太宰府',
+            chips: ['🎫 含海地獄門票', '🐸 療癒青蛙寺', '🍡 必吃梅枝餅'],
+            points: [
+              '欣賞湛藍冒煙的別府「海地獄溫泉」，再訪可愛的青蛙寺。',
+              '最後參拜太宰府天滿宮，漫步表參道拍隈研吾星巴克。'
+            ],
+            veg: '🍡 太宰府必吃現烤「梅枝餅」（紅豆麻糬，素食可安心享用）；海地獄若有附贈溫泉蛋，不吃蛋可避開。',
+            photoQ: '別府 海地獄 太宰府天滿宮',
             maps: [
               { name: '別府海地獄', q: 'Umi Jigoku Beppu' },
               { name: '如意輪寺（青蛙寺）', q: 'Nyoirinji Temple Ogori Fukuoka' },
@@ -1434,9 +1961,16 @@
           },
           {
             time: '18:00 – 20:30',
-            title: '返回博多車站 → 天神 / 博多晚餐與伴手禮採買',
-            desc: '約 18:00 回到博多市區（週六可能微塞車，不綁死餐廳時間最輕鬆）。享用美味蔬食晚餐、採買非液體類伴手禮，並準備明天早上的早餐食材回公寓。',
-            veg: '🍱 推薦：Sonu Sonu（天神高評價全素餐廳）或至天神岩田屋 B2F / 博多站 Evah Dining 挑選純素熟食與飯糰。若 Day 1 沒買到 Full Full，天神店（Full Full Bld.）營業至 20:00 可順路補買。',
+            art: 'tenjin_dinner',
+            tag: '🛍️ 晚餐＆採買',
+            title: '返回博多車站 → 天神 / 博多晚餐＆伴手禮',
+            chips: ['🍽️ 彈性用餐', '🎁 非液體伴手禮'],
+            points: [
+              '約 18:00 返回博多（週六可能微塞車，不綁死餐廳最輕鬆）。',
+              '採買伴手禮並順手準備明天早上的公寓早餐食材。'
+            ],
+            veg: '🍱 推薦：Sonu Sonu（天神高評價全素餐廳）或岩田屋 B2F / 博多站 Evah Dining。若 Day 1 沒買到 Full Full，天神店開到 20:00 可補買。',
+            photoQ: '天神 福岡 晚上',
             maps: [
               { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' },
               { name: 'Full Full 天神店', q: 'Full Full Bld. Tenjin Fukuoka' },
@@ -1447,15 +1981,29 @@
         3: [
           {
             time: '07:30 – 08:15',
+            art: 'spazio_hotel',
+            tag: '☕ 公寓早餐',
             title: '公寓廚房悠閒早餐 → 整理退房',
-            desc: '運用 SPAZIO 6 房內廚房輕鬆加熱昨晚買好的純素飯糰、熱湯與水果，大家吃飽喝足再從容退房。',
+            chips: ['🍳 房內輕鬆加熱', '🧳 確認手提 10kg'],
+            points: [
+              '運用 SPAZIO 6 廚房加熱昨晚買好的純素飯糰、熱湯與水果。',
+              '大家吃飽喝足再從容退房。'
+            ],
             veg: '🍱 若想現買早餐，博多站內 Evah Dining 早上 07:00 即開始營業。',
+            photoQ: '博多 Evah Dining',
             maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
           },
           {
             time: '08:15 – 10:55',
+            art: 'breakfast_flight',
+            tag: '🛫 平安返台',
             title: '計程車直達福岡機場國際線 → 搭機返台',
-            desc: '從住宿搭計程車至國際線航廈僅約 10 分鐘！辦妥報到與安檢後，可在免稅店補齊伴手禮，10:55 搭乘 IT241 平安返台（12:40 抵達桃園 T1）。',
+            chips: ['🚕 車程僅 10 分', '🛍️ 免稅店補伴手禮', '✈️ IT241 10:55'],
+            points: [
+              '搭計程車 10 分鐘直達國際線航廈，辦妥報到與安檢。',
+              '過安檢後在免稅店補齊伴手禮，10:55 搭機返台（12:40 抵桃園 T1）。'
+            ],
+            photoQ: '福岡機場 國際線 免稅店',
             maps: [{ name: '福岡機場國際線', q: 'Fukuoka Airport International Terminal' }]
           }
         ]
@@ -1464,15 +2012,27 @@
         1: [
           {
             time: '10:00 – 11:30',
+            art: 'airport',
+            tag: '🚕 門對門不淋雨',
             title: '抵達福岡機場 → 計程車直達博多車站',
-            desc: '下雨天搭計程車門對門最乾爽！直接至博多車站寄放隨身行李，全程都在室內連線空間移動。',
+            chips: ['☔ 全程室內動線', '🚕 門對門最乾爽'],
+            points: [
+              '下雨天搭計程車直達博多車站，寄放隨身行李全程不淋雨。'
+            ],
+            photoQ: '博多車站',
             maps: [{ name: '博多車站', q: 'Hakata Station Fukuoka' }]
           },
           {
             time: '11:30 – 13:30',
+            art: 'hakata_lunch',
+            tag: '🍱 車站全室內',
             title: '博多車站全室內蔬食午餐＆逛街',
-            desc: '不出站即可輕鬆用餐，飯後順逛博多阪急百貨與 Amu Plaza。',
-            veg: '🍱 推薦：Evah Dining（JR 博多站 Deitos 一品通內）或 Soup Stock Tokyo（Amu Plaza B1F，VEG 標示蔬食）。',
+            chips: ['🏬 博多阪急＆Amu', '🥬 蔬食免出站'],
+            points: [
+              '不出站就能輕鬆用餐，飯後順逛博多阪急與 Amu Plaza。'
+            ],
+            veg: '🍱 推薦：Evah Dining（Deitos 一品通）或 Soup Stock Tokyo（Amu Plaza B1F，VEG 標示蔬食）。',
+            photoQ: 'AMU PLAZA 博多',
             maps: [
               { name: 'Evah Dining 博多站', q: 'Evah Dining Hakata Deitos' },
               { name: 'Amu Plaza 博多', q: 'AMU PLAZA Hakata' }
@@ -1480,9 +2040,16 @@
           },
           {
             time: '13:30 – 16:30',
-            title: '川端通遮雨棚商店街 → The Full Full Hakata → 博多運河城',
-            desc: '川端通有完整遮雨棚不怕淋濕，接著順路到旁邊「The Full Full Hakata」快速外帶預訂好的明太子法國麵包，再進全室內的博多運河城看水舞、喝下午茶休息。',
-            veg: '🥖 明太子為魚卵（葷食），可替長輩挑選原味麵包；運河城內咖啡廳林立，隨時可坐下來吹暖氣休息。',
+            art: 'rainy_arcade',
+            tag: '☂️ 遮雨棚＆運河城',
+            title: '川端通遮雨棚 → Full Full 外帶 → 博多運河城',
+            chips: ['☂️ 完整遮雨棚', '🥖 快速外帶法棍', '☕ 吹暖氣午茶'],
+            points: [
+              '川端通有遮雨棚不怕淋濕，順路到旁邊「The Full Full Hakata」外帶預訂麵包。',
+              '進全室內的博多運河城看水舞、喝熱茶休息。'
+            ],
+            veg: '🥖 明太子為魚卵（葷食），可替長輩挑原味麵包；運河城內咖啡廳林立，隨時可休息。',
+            photoQ: '川端通商店街 博多運河城',
             maps: [
               { name: '川端通商店街', q: 'Kawabata Shopping Arcade Fukuoka' },
               { name: 'The Full Full Hakata', q: 'The Full Full Hakata Fukuoka' },
@@ -1491,15 +2058,28 @@
           },
           {
             time: '16:30 – 18:00',
+            art: 'spazio_hotel',
+            tag: '🏠 回房暖身',
             title: '領行李 → 計程車往 SPAZIO 6 入住休息',
-            desc: '搭計程車直達公寓門口，進房換下微濕衣物、泡杯熱茶暖暖身。',
+            chips: ['🚕 直達公寓門口', '🍵 換裝泡熱茶'],
+            points: [
+              '搭計程車直達門口，進房換下微濕衣物、泡杯熱茶暖暖身。'
+            ],
+            photoQ: 'SPAZIO 6 Hakata Station',
             maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
           },
           {
             time: '18:30 – 20:30',
+            art: 'tenjin_dinner',
+            tag: '🚇 地下街直達',
             title: '天神地下街直達純素晚餐',
-            desc: '全程地下連通道不淋雨！享受溫熱的香料蔬菜咖哩或義式蔬食。若明天 12/12 預報仍大雨，記得確認 Klook 一日遊是否於 24 小時前免費取消。',
-            veg: '🍱 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，天神地下街直達，提供純素無五辛蔬菜咖哩）或 Tomoyasu Seisakusho。',
+            chips: ['☔ 全程地下連通道', '🍛 暖身蔬菜咖哩'],
+            points: [
+              '全程地下街不淋雨，享用溫熱香料蔬菜咖哩或義式蔬食。',
+              '若預報明天仍大雨，記得確認 Klook 一日遊 24 小時前免費取消。'
+            ],
+            veg: '🍱 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，天神地下街直達，純素無五辛蔬菜咖哩）或 Tomoyasu Seisakusho。',
+            photoQ: '天神地下街 Solaria Stage',
             maps: [
               { name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' },
               { name: '天神地下街', q: 'Tenjin Underground Shopping Center' }
@@ -1509,15 +2089,28 @@
         2: [
           {
             time: '09:30 – 11:30',
-            title: '福岡亞洲美術館（博多河岸城全室內・雨天取消跟團備案）',
-            desc: '若 12/12 大雨取消由布院一日遊，改走市區質感全室內動線！美術館寬敞安靜、設有舒適休息區與咖啡廳，長輩逛起來毫無負擔。',
+            art: 'art_museum',
+            tag: '🖼️ 質感全室內',
+            title: '福岡亞洲美術館（雨天取消跟團備案）',
+            chips: ['☂️ 寬敞安靜', '👵 長輩無負擔'],
+            points: [
+              '若 12/12 大雨取消由布院一日遊，改走質感全室內藝文動線。',
+              '館內設有舒適休息區與咖啡廳，逛起來優雅輕鬆。'
+            ],
+            photoQ: '福岡亞洲美術館',
             maps: [{ name: '福岡亞洲美術館', q: 'Fukuoka Asian Art Museum' }]
           },
           {
             time: '12:00 – 13:30',
-            title: '暖呼呼純素拉麵或蔬食咖啡廳午餐',
-            desc: '搭計程車幾分鐘即可抵達餐廳，下雨天喝碗熱湯最幸福。',
-            veg: '🍱 推薦：Bugoro All Vegan（週六全天營業，純素拉麵，建議預約）或 Sonu Sonu（天神全素餐廳，環境寬敞好坐）。',
+            art: 'vegan_ramen',
+            tag: '🍜 暖呼呼熱湯',
+            title: '純素拉麵或蔬食咖啡廳午餐',
+            chips: ['🚕 車程僅數分鐘', '🔥 雨天必喝熱湯'],
+            points: [
+              '搭計程車幾分鐘直達餐廳，下雨天來碗熱呼呼的湯最幸福。'
+            ],
+            veg: '🍱 推薦：Bugoro All Vegan（週六全天營業，純素拉麵建議預約）或 Sonu Sonu（天神全素餐廳，寬敞好坐）。',
+            photoQ: 'Bugoro All Vegan Fukuoka',
             maps: [
               { name: 'Bugoro All Vegan', q: 'Bugoro All Vegan Fukuoka' },
               { name: 'Sonu Sonu 天神', q: 'Sonu Sonu Fukuoka' }
@@ -1525,9 +2118,16 @@
           },
           {
             time: '14:00 – 17:30',
-            title: '天神地下街＆百貨群 或 LaLaport 福岡（全室內）',
-            desc: '兩者皆為超好逛的全室內動線！想優雅買伴手禮可逛天神地下街與岩田屋百貨；想逛大型商場與看鋼彈可搭計程車去 LaLaport 福岡。',
-            veg: '🍱 岩田屋 B2F 有 Evah Dining 專櫃，方便順手買熟食與隔日早餐。',
+            art: 'lalaport_tenjin',
+            tag: '🛍️ 百貨＆鋼彈',
+            title: '天神地下街＆百貨群 或 LaLaport 福岡',
+            chips: ['🏠 全室內超好逛', '🤖 實物大鋼彈'],
+            points: [
+              '想優雅買伴手禮可逛天神地下街與岩田屋百貨。',
+              '想逛大型商場與看實物大鋼彈可搭計程車去 LaLaport 福岡。'
+            ],
+            veg: '🍱 岩田屋 B2F 有 Evah Dining 專櫃，順手買熟食與隔日早餐超方便。',
+            photoQ: 'LaLaport 福岡 鋼彈',
             maps: [
               { name: '天神地下街', q: 'Tenjin Underground Shopping Center' },
               { name: 'LaLaport 福岡', q: 'Mitsui Shopping Park LaLaport Fukuoka' }
@@ -1535,23 +2135,41 @@
           },
           {
             time: '18:00 – 20:00',
-            title: '室內溫馨晚餐 或 外帶熟食回公寓享用',
-            desc: '若外面雨勢較大，外帶熱騰騰的純素料理回 SPAZIO 6 搭配熱茶，一家人輕鬆聊天也很愜意。',
+            art: 'tenjin_dinner',
+            tag: '🍲 室內暖心晚餐',
+            title: '室內溫馨晚餐 或 外帶熟食回公寓',
+            chips: ['☔ 彈性免奔波', '🍵 回房配熱茶'],
+            points: [
+              '若外面雨勢較大，外帶熱騰騰的純素料理回 SPAZIO 6 一家人聊天也很愜意。'
+            ],
             veg: '🍱 推薦：ちゃぶや咖喱魚（Solaria Stage 2F，純素無五辛蔬菜咖哩）或 Evah Dining 純素熟食便當。',
+            photoQ: 'Solaria Stage 福岡',
             maps: [{ name: 'Solaria Stage 天神', q: 'Solaria Stage Fukuoka' }]
           }
         ],
         3: [
           {
             time: '07:30 – 08:15',
+            art: 'spazio_hotel',
+            tag: '☕ 房內早餐',
             title: '公寓房內暖心早餐 → 退房',
-            desc: '下雨天免出門找早餐！直接在房內廚房加熱昨晚買好的純素飯糰與熱飲，輕鬆打包退房。',
+            chips: ['☔ 免出門找早餐', '🍳 廚房輕鬆加熱'],
+            points: [
+              '直接在房內加熱昨晚買好的純素飯糰與熱飲，從容打包退房。'
+            ],
+            photoQ: 'SPAZIO 6 Hakata Station',
             maps: [{ name: 'SPAZIO 6 Hakata Station', q: 'SPAZIO 6 Hakata Station Fukuoka' }]
           },
           {
             time: '08:15 – 10:55',
+            art: 'breakfast_flight',
+            tag: '🛫 乾爽返台',
             title: '計程車直達福岡機場國際線 → 搭機返台',
-            desc: '請計程車直接開到國際線航廈雨遮下方，乾爽入關！過安檢後在免稅店輕鬆採買，10:55 搭乘 IT241 返台。',
+            chips: ['🚕 直達雨遮下方', '🛍️ 免稅店採買'],
+            points: [
+              '請計程車開到國際線航廈雨遮下方乾爽入關，過安檢後在免稅店採買，10:55 搭 IT241 返台。'
+            ],
+            photoQ: '福岡機場 國際線',
             maps: [{ name: '福岡機場國際線', q: 'Fukuoka Airport International Terminal' }]
           }
         ]
@@ -1833,16 +2451,38 @@
       const items = ITINERARY[weatherMode][currentDay] || [];
       document.getElementById('itineraryList').innerHTML = items.map(item => `
         <div class="timeline-item">
-          <div class="time-badge">🕒 ${item.time}</div>
-          <h3 class="spot-title">${item.title}</h3>
-          <p class="spot-desc">${item.desc}</p>
-          ${item.veg ? `<div class="veg-note">${item.veg}</div>` : ''}
-          <div class="map-links">
-            ${(item.maps || []).map(m => `
-              <a class="btn btn-soft btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.q)}">
-                📍 ${m.name}
-              </a>
-            `).join('')}
+          <div class="spot-hero">
+            ${SPOT_ART[item.art] || ''}
+            <div class="spot-hero-top">
+              <span class="hero-time-pill">🕒 ${item.time}</span>
+              ${item.tag ? `<span class="hero-tag-pill">${item.tag}</span>` : ''}
+            </div>
+          </div>
+          <div class="spot-body">
+            <h3 class="spot-title">${item.title}</h3>
+            ${item.chips && item.chips.length ? `
+              <div class="spot-chips">
+                ${item.chips.map(c => `<span class="spot-chip">${c}</span>`).join('')}
+              </div>
+            ` : ''}
+            ${item.points && item.points.length ? `
+              <ul class="spot-points">
+                ${item.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            ` : (item.desc ? `<p class="spot-desc">${item.desc}</p>` : '')}
+            ${item.veg ? `<div class="veg-note">${item.veg}</div>` : ''}
+            <div class="map-links">
+              ${(item.maps || []).map(m => `
+                <a class="btn btn-soft btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.q)}">
+                  📍 ${m.name}
+                </a>
+              `).join('')}
+              ${item.photoQ ? `
+                <a class="btn btn-photo btn-sm" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.photoQ)}">
+                  📷 看實景照
+                </a>
+              ` : ''}
+            </div>
           </div>
         </div>
       `).join('');
